@@ -1,0 +1,15 @@
+.exercises {
+    color: white;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.exercises-title {
+    text-align: center;
+    margin: 0;
+}
+
+.table {
+    margin-top: 2em;
+}

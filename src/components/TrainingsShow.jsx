@@ -1,5 +1,6 @@
 import React, {Fragment, useState} from 'react';
 import EditableTable from "./EditableTable.jsx";
+import TrainingStartPage from "./StartPage/TrainingStartPage.jsx";
 
 function TrainingsShow({trainings}) {
 
@@ -7,7 +8,13 @@ function TrainingsShow({trainings}) {
     const [chosenTraining, setChosenTraining] = useState(undefined)
 
     let content;
-    let afterChoosing = <EditableTable training={chosenTraining}/>
+    let afterChoosing = (
+        <div>
+            <EditableTable training={chosenTraining}/>
+            <TrainingStartPage training={chosenTraining}/>
+        </div>
+    );
+
     function handleChoice(training) {
         setChosen(true)
         setChosenTraining(training)
@@ -36,7 +43,7 @@ function TrainingsShow({trainings}) {
 
     return (
         <Fragment>
-         {content}
+            {content}
         </Fragment>
     );
 }
