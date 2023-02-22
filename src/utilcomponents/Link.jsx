@@ -1,8 +1,13 @@
 import useNavigation from "../hooks/use-navigation.js";
-import "../components/NavBar.modules.css"
+import classNames from "classnames"
 
-function Link({to, children}) {
-    const {navigate} = useNavigation();
+function Link({to, children, className, activeClassName}) {
+    const {navigate, currentPath} = useNavigation();
+
+    let classes = classNames(
+        className,
+        currentPath === to && activeClassName
+    )
     function handleClick(event) {
         if (event.metaKey || event.ctrlKey){
             return;
@@ -11,8 +16,7 @@ function Link({to, children}) {
         navigate(to);
     }
     return (
-        <a className="nav-link" href={to} onClick={handleClick}>{children}</a>
+        <a className={classes} href={to} onClick={handleClick}>{children}</a>
     )
 }
-
 export default Link;

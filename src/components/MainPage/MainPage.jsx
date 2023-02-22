@@ -1,6 +1,6 @@
 import React from 'react';
-import {useFetchAllTrainingsQuery} from "../store/index.js";
-import TrainingsShow from "./TrainingsShow.jsx";
+import {useFetchAllTrainingsQuery} from "../../store/index.js";
+import AllTrainingsShow from "./AllTrainingsShow.jsx";
 
 function MainPage() {
 
@@ -13,7 +13,7 @@ function MainPage() {
     } else if (error) {
         content = <h1>Error loading data..</h1>
     } else {
-        content = <TrainingsShow trainings={data}/>
+        content = <AllTrainingsShow trainings={data}/>
     }
 
     return (

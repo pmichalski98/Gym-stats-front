@@ -1,8 +1,8 @@
-import Table from "./Table.jsx";
+import TrainingTable from "./TrainingTable.jsx";
 import {useState} from "react";
-import {useUpdateTrainingsMutation} from "../store";
+import {useUpdateTrainingsMutation} from "../../store/index.js";
 
-function EditableTable({training}) {
+function TrainingShow({training}) {
 
     const [data, setData] = useState(training);
     const [editRow, setEditRow] = useState(null);
@@ -78,7 +78,7 @@ function EditableTable({training}) {
         {
             label: 'Powtorzenia',
             render: (exercise, index) => editRow === index ?
-                <input type="number" name="reps" value={formData.reps}
+                <input className="focus:outline-amber-300 w-full text-center" type="number" name="reps" value={formData.reps}
                        onChange={handleEditFormChange}/> : exercise.reps
         },
         {
@@ -101,12 +101,12 @@ function EditableTable({training}) {
     return (
         <div className="container mx-auto ">
             <h1 className="text-center p-4 text-5xl">{training.name}</h1>
-            <form onSubmit={handleSave}>
-                <Table config={config} data={data.exercises}/>
+            <form className="grid inline-grid grid-cols-6 gap-4 mx-auto container max-w-3xl" onSubmit={handleSave}>
+                <TrainingTable config={config} data={data.exercises}/>
             </form>
             <button onClick={handleSavingTraining}>Save training</button>
         </div>
     );
 }
 
-export default EditableTable;
+export default TrainingShow;

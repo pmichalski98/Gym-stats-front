@@ -1,5 +1,4 @@
-import Link from "../utilComponents/Link";
-import "./NavBar.modules.css"
+import Link from "../../utilcomponents/Link.jsx";
 
 function Navbar() {
     const links = [
@@ -11,11 +10,12 @@ function Navbar() {
     ];
 
     const renderedLinks = links.map((link) => {
-
         return (
             <Link
                 to={link.path}
                 key={link.label}
+                className="text-xl hover:text-cyan focus:outline-cyan outline-none rounded p-1 mb-1"
+                activeClassName="font-bold border-l-4 border-cyan pl-2 text-cyan"
             >
                 {link.label}
             </Link>
@@ -23,13 +23,9 @@ function Navbar() {
     });
 
     return (
-        <>
-            <nav className="nav">
-                <div className="container">
-                    {renderedLinks}
-                </div>
-            </nav>
-        </>
+        <nav className="flex justify-center justify-around border-b-4 border-cyan pt-3 ">
+            {renderedLinks}
+        </nav>
     );
 }
 
