@@ -10,7 +10,7 @@ function AllTrainingsShow({trainings}) {
     let content;
     let afterChoosing = (
         <div>
-            <TrainingShow training={chosenTraining}/>
+            <TrainingShow training={chosenTraining} setChosen={setChosen}/>
         </div>
     );
 

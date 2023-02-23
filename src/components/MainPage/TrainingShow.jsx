@@ -1,8 +1,9 @@
 import TrainingTable from "./TrainingTable.jsx";
 import {useState} from "react";
 import {useUpdateTrainingsMutation} from "../../store/index.js";
+import Button from "../../utilcomponents/Button.jsx";
 
-function TrainingShow({training}) {
+function TrainingShow({training, setChosen}) {
 
     const [data, setData] = useState(training);
     const [editRow, setEditRow] = useState(null);
@@ -91,20 +92,22 @@ function TrainingShow({training}) {
             label: 'Actions',
             render: (exercise, index) =>
                 index !== editRow ?
-                    <button key={index} onClick={(event) => handleEdit(event, exercise, index)}
-                            >Edit</button> :
-                    <button key={index} type="submit" >Save</button>
+                    <Button success pad rounded key={index} onClick={(event) => handleEdit(event, exercise, index)}
+                            >Edit</Button> :
+                    <Button success pad rounded key={index} type="submit" >Save</Button>
         }
-
     ]
 
     return (
-        <div className="container mx-auto ">
+        <div className=" w-10/12 container mx-auto content-center grid gap-4">
             <h1 className="text-center p-4 text-5xl">{training.name}</h1>
-            <form className="grid inline-grid grid-cols-6 gap-4 mx-auto container max-w-3xl" onSubmit={handleSave}>
+            <form className="text-center grid inline-grid grid-cols-6 gap-4 mx-auto container max-w-3xl" onSubmit={handleSave}>
                 <TrainingTable config={config} data={data.exercises}/>
             </form>
-            <button onClick={handleSavingTraining}>Save training</button>
+            <div className="flex justify-around ">
+                <Button primary pad rounded onClick={handleSavingTraining}>Save training</Button>
+                <Button secondary roundedFull pad onClick={() => setChosen(false)}>Go back</Button>
+            </div>
         </div>
     );
 }

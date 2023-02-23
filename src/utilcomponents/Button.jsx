@@ -1,5 +1,5 @@
 import classNames from "classnames";
-function Button({children,primary,secondary,success,warning,outline,pad,  ...rest}) {
+function Button({children,primary,secondary,success,warning,outline,pad,rounded,roundedFull,  ...rest}) {
 
     const classes = classNames(
         rest.className,
@@ -8,10 +8,12 @@ function Button({children,primary,secondary,success,warning,outline,pad,  ...res
         'hover:text-lightWhite focus:outline-cyan outline-none',
         {
             'border-cyan bg-gradient-to-r from-blue-500 to-cyan' : primary,
-            'border-2 border-cyan bg-backgroundBlue' : secondary,
+            'border-2 border-cyan bg-backgroundBlue text-white' : secondary,
             'border-cyan bg-darkerCyan text-black' : success,
             'px-3 py-1.5' : pad,
-            'border-2' : outline
+            'border-2' : outline,
+            'rounded-full' : roundedFull,
+            'rounded' : rounded,
         });
 
     return <button {...rest} className={classes}>{children}</button>
