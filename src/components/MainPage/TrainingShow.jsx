@@ -2,6 +2,7 @@ import TrainingTable from "./TrainingTable.jsx";
 import {useState} from "react";
 import {useUpdateTrainingsMutation} from "../../store/index.js";
 import Button from "../../utilcomponents/Button.jsx";
+import Input from "../../utilcomponents/Input.jsx";
 
 function TrainingShow({training, setChosen}) {
     const [data, setData] = useState(training);
@@ -69,7 +70,7 @@ function TrainingShow({training, setChosen}) {
             label: "Ćwiczenie",
             render: (exercise, index) =>
                 editRow === index ? (
-                    <input
+                    <Input
                         type="text"
                         name="name"
                         value={formData.name}
@@ -83,7 +84,7 @@ function TrainingShow({training, setChosen}) {
             label: "Serie",
             render: (exercise, index) =>
                 editRow === index ? (
-                    <input
+                    <Input
                         type="number"
                         name="sets"
                         value={formData.sets}
@@ -97,8 +98,8 @@ function TrainingShow({training, setChosen}) {
             label: "Powtorzenia",
             render: (exercise, index) =>
                 editRow === index ? (
-                    <input
-                        className="focus:outline-amber-300 w-full text-center"
+                    <Input
+                        className=" "
                         type="number"
                         name="reps"
                         value={formData.reps}
@@ -112,7 +113,7 @@ function TrainingShow({training, setChosen}) {
             label: "Ciężar",
             render: (exercise, index) =>
                 editRow === index ? (
-                    <input
+                    <Input
                         type="number"
                         name="weight"
                         value={formData.weight}
