@@ -2,7 +2,7 @@ function TrainingTable({config, data}) {
 
     const renderedLabels = config.map((column, index) => {
 
-        return <div className="" key={column.label}>{column.label}</div>
+        return <h2 className="" key={column.label}>{column.label}</h2>
     });
 
     const readOnlyRows = data.map((rowData, index) => {
@@ -18,9 +18,9 @@ function TrainingTable({config, data}) {
 
     return (
         <>
-                <div className='contents'>
-                    {renderedLabels}
-                </div>
+            <div className='contents'>
+                {renderedLabels}
+            </div>
             {readOnlyRows}
         </>
     );

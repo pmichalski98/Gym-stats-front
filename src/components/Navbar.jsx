@@ -1,4 +1,4 @@
-import Link from "../../utilcomponents/Link.jsx";
+import Link from "../utilcomponents/Link.jsx";
 
 function Navbar() {
     const links = [

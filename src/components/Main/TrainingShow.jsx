@@ -1,18 +1,18 @@
 import TrainingTable from "./TrainingTable.jsx";
-import {useState} from "react";
+import React, {useState} from "react";
 import {useUpdateTrainingsMutation} from "../../store/index.js";
 import Button from "../../utilcomponents/Button.jsx";
 import Input from "../../utilcomponents/Input.jsx";
 
 function TrainingShow({training, setChosen}) {
-    const [data, setData] = useState(training);
+    const [chosenTraining, setChosenTraining] = useState(training);
     const [editRow, setEditRow] = useState(null);
     const [formData, setFormData] = useState({});
 
     const [updateTrainings] = useUpdateTrainingsMutation();
 
     function handleSavingTraining() {
-        updateTrainings(data);
+        updateTrainings(chosenTraining);
     }
 
     function handleEditFormChange(e) {
@@ -22,11 +22,7 @@ function TrainingShow({training, setChosen}) {
         const fieldValue = e.target.value;
 
         const updatedData = {...formData};
-        if (fieldName === "name") {
-            updatedData[fieldName] = fieldValue;
-        } else {
-            updatedData[fieldName] = parseInt(fieldValue);
-        }
+        updatedData[fieldName] = fieldName === 'name' ? fieldValue : parseInt(fieldValue);
         setFormData(updatedData);
     }
 
@@ -46,19 +42,32 @@ function TrainingShow({training, setChosen}) {
     function handleSave(event) {
         event.preventDefault();
 
-        const updatedExercises = data.exercises.map((exercise) =>
+        const updatedExercises = chosenTraining.exercises.map((exercise) =>
             exercise.id === formData.id
                 ? {...exercise, ...formData}
                 : {...exercise}
         );
 
-        const dataAfterEdit = {
-            ...data,
+        const trainingAfterEdit = {
+            ...chosenTraining,
             exercises: updatedExercises,
         };
 
-        setData(dataAfterEdit);
+        setChosenTraining(trainingAfterEdit);
         setEditRow(null);
+    }
+
+    function showInputOrLabel(index, name, label, value) {
+        return editRow === index ? (
+            <Input
+                type={typeof value === "number" ? "number" : "text"}
+                name={name}
+                value={value}
+                onChange={(e) => handleEditFormChange(e)}
+            />
+        ) : (
+            name === "weight" ?  label + ' kg' : label
+        );
     }
 
     const config = [
@@ -68,60 +77,19 @@ function TrainingShow({training, setChosen}) {
         },
         {
             label: "Ćwiczenie",
-            render: (exercise, index) =>
-                editRow === index ? (
-                    <Input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={(e) => handleEditFormChange(e)}
-                    />
-                ) : (
-                    exercise.name
-                ),
+            render: (exercise, index) => showInputOrLabel(index,"name", exercise.name, formData.name),
         },
         {
             label: "Serie",
-            render: (exercise, index) =>
-                editRow === index ? (
-                    <Input
-                        type="number"
-                        name="sets"
-                        value={formData.sets}
-                        onChange={handleEditFormChange}
-                    />
-                ) : (
-                    exercise.sets
-                ),
+            render: (exercise, index) => showInputOrLabel(index,"sets", exercise.sets, formData.sets),
         },
         {
             label: "Powtorzenia",
-            render: (exercise, index) =>
-                editRow === index ? (
-                    <Input
-                        className=" "
-                        type="number"
-                        name="reps"
-                        value={formData.reps}
-                        onChange={handleEditFormChange}
-                    />
-                ) : (
-                    exercise.reps
-                ),
+            render: (exercise, index) => showInputOrLabel(index,"reps", exercise.reps, formData.reps),
         },
         {
             label: "Ciężar",
-            render: (exercise, index) =>
-                editRow === index ? (
-                    <Input
-                        type="number"
-                        name="weight"
-                        value={formData.weight}
-                        onChange={handleEditFormChange}
-                    />
-                ) : (
-                    exercise.weight + " kg"
-                ),
+            render: (exercise, index) => showInputOrLabel(index,"weight", exercise.weight, formData.weight)
         },
         {
             label: "Actions",
@@ -151,7 +119,7 @@ function TrainingShow({training, setChosen}) {
                 className="text-center grid inline-grid grid-cols-6 gap-4 mx-auto container max-w-3xl"
                 onSubmit={handleSave}
             >
-                <TrainingTable config={config} data={data.exercises}/>
+                <TrainingTable config={config} data={chosenTraining.exercises}/>
             </form>
             <div className="flex justify-around ">
                 <Button primary pad rounded onClick={handleSavingTraining}>
