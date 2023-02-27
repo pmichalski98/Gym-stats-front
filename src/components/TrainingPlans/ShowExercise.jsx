@@ -7,7 +7,7 @@ function ShowExercise({exercises, onDelete}) {
         return (
             <p key={index} className="flex items-center gap-2">
                 {index + 1} {exercise.name}
-                {onDelete && <GoTrashcan onClick={() => onDelete(index)}/>}
+                {onDelete && <GoTrashcan className="cursor-pointer" onClick={() => onDelete(index)}/>}
             </p>
         );
     })
