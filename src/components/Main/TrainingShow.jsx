@@ -134,12 +134,13 @@ function TrainingShow({training, setChosen}) {
                     <Button className="mt-10" primary pad rounded onClick={handleSavingTraining}>Save training</Button>
                 </div>
             </div>
-            <Button onClick={startTrainingClick} primary className="text-6xl px-9 py-6 mx-auto rounded mt-10"> START
-                TRAINING</Button>
+            <Button onClick={startTrainingClick} primary className="text-6xl px-9 py-6 mx-auto rounded mt-10">
+                START TRAINING
+            </Button>
         </Fragment>
     );
 
-    const contentAfterTrainingStarted = <TrainingStartedPage/>
+    const contentAfterTrainingStarted = <TrainingStartedPage training={chosenTraining}/>
 
     return (
         <div className=" w-10/12 container mx-auto content-center grid gap-4 ">
