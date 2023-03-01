@@ -2,9 +2,13 @@ import {useState} from "react";
 import {GoChevronDown, GoChevronLeft, GoTrashcan} from "react-icons/go";
 import {useDeleteTrainingMutation} from "../../store";
 import ShowExercise from "./ShowExercise";
-import {Training, Trainings} from "../../types/training";
+import {Training} from "../../types/training";
 
-function Accordion({trainings}:Trainings) {
+interface Props {
+    trainings: Training[];
+}
+
+function Accordion({trainings}: Props) {
 
     const [deleteTraining] = useDeleteTrainingMutation();
     const [expandedIndex, setExpandedIndex] = useState(NaN);

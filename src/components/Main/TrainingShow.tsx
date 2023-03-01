@@ -1,5 +1,5 @@
 import TrainingTable from "./TrainingTable";
-import React, {Fragment, useState} from "react";
+import React, {ChangeEvent, Fragment, useState} from "react";
 import {useUpdateTrainingsMutation} from "../../store";
 import Button from "../../utilcomponents/Button";
 import Input from "../../utilcomponents/Input";
@@ -14,7 +14,7 @@ interface Props {
 function TrainingShow({training, setChosen}: Props) {
     const [chosenTraining, setChosenTraining] = useState(training);
     const [editRow, setEditRow] = useState<number | null>(null);
-    const [formData, setFormData] = useState<Exercise>(null as unknown as Exercise);
+    const [formData, setFormData] = useState<Exercise | null>(null);
     const [startTraining, setStartTraining] = useState(false);
 
     const [updateTrainings] = useUpdateTrainingsMutation();
@@ -23,14 +23,13 @@ function TrainingShow({training, setChosen}: Props) {
         updateTrainings(chosenTraining);
     }
 
-    function handleEditFormChange(event: { preventDefault: () => void; target: { getAttribute: (arg0: string) => string; value: string | number; }; }) {
+    function handleEditFormChange(event: ChangeEvent<HTMLInputElement>, fieldName:string) {
         event.preventDefault();
 
-        const fieldName: string = event.target.getAttribute("name");
         const fieldValue = event.target.value;
 
-        const updatedData:Exercise = {...formData};
-        // @ts-ignore
+        const updatedData = {...formData};
+
         updatedData[fieldName] = fieldName === 'name' ? fieldValue : parseInt(fieldValue);
         setFormData(updatedData);
     }
@@ -134,7 +133,7 @@ function TrainingShow({training, setChosen}: Props) {
     const contentBeforeTrainingStarted = (
         <Fragment>
             <div className="container mx-auto w-fit my-14 ">
-                <Button secondary roundedFull pad onClick={() => setChosen(false)}>Go Back</Button>
+                <Button secondary rounded pad onClick={() => setChosen(false)}>Go Back</Button>
                 <h1 className="text-center p-4 text-5xl mb-10">{training.name}</h1>
                 <form
                     className="text-center grid inline-grid grid-cols-6 gap-4 mx-auto container max-w-3xl"

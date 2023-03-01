@@ -1,9 +1,9 @@
 import React from 'react';
 import {GoTrashcan} from "react-icons/go";
-import {Exercise, Exercises} from "../../types/training";
+import {Exercise} from "../../types/training";
 
 interface Props {
-    exercises:Exercises;
+    exercises:Exercise[];
     onDelete?: (index:number) => void
 }
 

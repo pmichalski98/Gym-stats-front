@@ -4,7 +4,6 @@ import MainPage from "./components/Main/MainPage";
 import Workouts from "./components/TrainingPlans/Workouts.jsx";
 import GoogleAuth from "./components/GoogleAuth";
 
-
 function App() {
     return (
         <div className="bg-backgroundBlue h-screen text-textWhite ">

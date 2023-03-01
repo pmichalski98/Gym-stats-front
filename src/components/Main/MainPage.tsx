@@ -4,7 +4,6 @@ import AllTrainingsShow from "./AllTrainingsShow";
 
 function MainPage() {
 
-    // dalem null zeby dzialalo
     const {data, error, isFetching} = useFetchAllTrainingsQuery(null);
 
     let content;

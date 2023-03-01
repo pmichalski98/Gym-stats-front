@@ -5,19 +5,10 @@ export interface Exercise {
     reps?:number;
     weight?:number;
 }
-
-export interface Exercises{
-    exercises: Exercise[]
-}
-
 export interface Training {
     name:string;
     id:string;
-    exercises: Exercises
-}
-
-export interface Trainings {
-    trainings: Training[]
+    exercises: Exercise[]
 }
 
 export interface NavContext {

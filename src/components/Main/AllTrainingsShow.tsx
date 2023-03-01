@@ -24,7 +24,6 @@ function AllTrainingsShow({trainings}:TrainingsProps) {
 
     let renderedTrainings = trainings.map((training, index) => {
         return (
-            // @ts-ignore
             <Button
                 onClick={() => handleChoice(training)}
                 key={index}

@@ -50,7 +50,7 @@ function AddingTraining({toggleWindow}) {
     const saveTrainingBtn = exercises.length > 0 &&
         <Button onClick={handleSubmit} success pad rounded className="mt-4 mx-auto">Zapisz trening</Button>
 
-    const addExerciseBtn = <Button onClick={handleAddingExercise} className="mx-auto mt-4" primary pad roundedFull>Dodaj
+    const addExerciseBtn = <Button onClick={handleAddingExercise} className="mx-auto mt-4" primary pad rounded>Dodaj
         cwiczenie</Button>
 
     const renderedExercises = <ShowExercise exercises={exercises} onDelete={handleExerciseDelete}/>
