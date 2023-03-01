@@ -1,12 +1,11 @@
-import Route from "./utilcomponents/Route.jsx";
-import Navbar from "./components/Navbar.jsx";
-import MainPage from "./components/Main/MainPage.jsx";
+import Route from "./utilcomponents/Route";
+import Navbar from "./components/Navbar";
+import MainPage from "./components/Main/MainPage";
 import Workouts from "./components/TrainingPlans/Workouts.jsx";
-import GoogleAuth from "./components/GoogleAuth.jsx";
+import GoogleAuth from "./components/GoogleAuth";
 
 
 function App() {
-
     return (
         <div className="bg-backgroundBlue h-screen text-textWhite ">
             <Navbar/>

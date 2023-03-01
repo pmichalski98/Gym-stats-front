@@ -1,14 +1,20 @@
-import TrainingTable from "./TrainingTable.jsx";
+import TrainingTable from "./TrainingTable";
 import React, {Fragment, useState} from "react";
-import {useUpdateTrainingsMutation} from "../../store/index.js";
-import Button from "../../utilcomponents/Button.jsx";
-import Input from "../../utilcomponents/Input.jsx";
-import TrainingStartedPage from "./TrainingStartedPage.jsx";
+import {useUpdateTrainingsMutation} from "../../store";
+import Button from "../../utilcomponents/Button";
+import Input from "../../utilcomponents/Input";
+import TrainingStartedPage from "./TrainingStartedPage";
+import {Exercise, Training} from "../../types/training";
 
-function TrainingShow({training, setChosen}) {
+interface Props {
+    training: Training;
+    setChosen: (value: boolean) => void
+}
+
+function TrainingShow({training, setChosen}: Props) {
     const [chosenTraining, setChosenTraining] = useState(training);
-    const [editRow, setEditRow] = useState(null);
-    const [formData, setFormData] = useState({});
+    const [editRow, setEditRow] = useState<number | null>(null);
+    const [formData, setFormData] = useState<Exercise>(null as unknown as Exercise);
     const [startTraining, setStartTraining] = useState(false);
 
     const [updateTrainings] = useUpdateTrainingsMutation();
@@ -17,21 +23,22 @@ function TrainingShow({training, setChosen}) {
         updateTrainings(chosenTraining);
     }
 
-    function handleEditFormChange(e) {
-        e.preventDefault();
+    function handleEditFormChange(event: { preventDefault: () => void; target: { getAttribute: (arg0: string) => string; value: string | number; }; }) {
+        event.preventDefault();
 
-        const fieldName = e.target.getAttribute("name");
-        const fieldValue = e.target.value;
+        const fieldName: string = event.target.getAttribute("name");
+        const fieldValue = event.target.value;
 
-        const updatedData = {...formData};
+        const updatedData:Exercise = {...formData};
+        // @ts-ignore
         updatedData[fieldName] = fieldName === 'name' ? fieldValue : parseInt(fieldValue);
         setFormData(updatedData);
     }
 
-    function handleEdit(event, exercise, index) {
+    function handleEdit(event: Event, exercise: Exercise, index: number) {
         event.preventDefault();
         setEditRow(index);
-        const defaultValues = {
+        const defaultValues: Exercise = {
             id: exercise.id,
             name: exercise.name,
             sets: exercise.sets,
@@ -41,31 +48,33 @@ function TrainingShow({training, setChosen}) {
         setFormData(defaultValues)
     }
 
-    function handleSave(event) {
+    function handleSave(event: Event) {
         event.preventDefault();
 
-        const updatedExercises = chosenTraining.exercises.map((exercise) =>
-            exercise.id === formData.id
-                ? {...exercise, ...formData}
-                : {...exercise}
-        );
+        if (chosenTraining) {
+            const updatedExercises = chosenTraining.exercises.map((exercise: Exercise) =>
+                exercise.id === formData.id
+                    ? {...exercise, ...formData}
+                    : {...exercise}
+            );
 
-        const trainingAfterEdit = {
-            ...chosenTraining,
-            exercises: updatedExercises,
-        };
+            const trainingAfterEdit = {
+                ...chosenTraining,
+                exercises: updatedExercises,
+            };
 
-        setChosenTraining(trainingAfterEdit);
-        setEditRow(null);
+            setChosenTraining(trainingAfterEdit);
+            setEditRow(null);
+        }
     }
 
-    function showInputOrLabel(index, name, label, value) {
+    function showInputOrLabel(index: number, name: string, label: string | number | undefined, value: string | number | undefined) {
         return editRow === index ? (
             <Input
                 type={typeof value === "number" ? "number" : "text"}
                 name={name}
                 value={value}
-                onChange={(e) => handleEditFormChange(e)}
+                onChange={handleEditFormChange}
             />
         ) : (
             name === "weight" ? label + ' kg' : label
@@ -76,41 +85,45 @@ function TrainingShow({training, setChosen}) {
         setStartTraining(!startTraining)
     }
 
+    //@TODO Keep refactoring to typescript. Need to change Input/Button components
+    // @ts-ignore
     const config = [
         {
             label: "",
-            render: (exercise, index) => index + 1,
+            render: (exercise: Exercise, index: number) => index + 1,
         },
         {
             label: "Ćwiczenie",
-            render: (exercise, index) => showInputOrLabel(index, "name", exercise.name, formData.name),
+            render: (exercise: Exercise, index: number) => showInputOrLabel(index, "name", exercise.name, formData.name),
         },
         {
             label: "Serie",
-            render: (exercise, index) => showInputOrLabel(index, "sets", exercise.sets, formData.sets),
+            render: (exercise: Exercise, index: number) => showInputOrLabel(index, "sets", exercise.sets, formData.sets),
         },
         {
             label: "Powtorzenia",
-            render: (exercise, index) => showInputOrLabel(index, "reps", exercise.reps, formData.reps),
+            render: (exercise: Exercise, index: number) => showInputOrLabel(index, "reps", exercise.reps, formData.reps),
         },
         {
             label: "Ciężar",
-            render: (exercise, index) => showInputOrLabel(index, "weight", exercise.weight, formData.weight)
+            render: (exercise: Exercise, index: number) => showInputOrLabel(index, "weight", exercise.weight, formData.weight)
         },
         {
             label: "Actions",
-            render: (exercise, index) =>
+            render: (exercise: Exercise, index: number) =>
                 index !== editRow ? (
+                    // @ts-ignore
                     <Button
                         success
                         pad
                         rounded
                         key={index}
-                        onClick={(event) => handleEdit(event, exercise, index)}
+                        onClick={(event: Event) => handleEdit(event, exercise, index)}
                     >
                         Edit
                     </Button>
                 ) : (
+                    // @ts-ignore
                     <Button success pad rounded key={index} type="submit">
                         Save
                     </Button>
@@ -121,8 +134,7 @@ function TrainingShow({training, setChosen}) {
     const contentBeforeTrainingStarted = (
         <Fragment>
             <div className="container mx-auto w-fit my-14 ">
-                <Button className="" secondary roundedFull pad onClick={() => setChosen(false)}>Go
-                    back</Button>
+                <Button secondary roundedFull pad onClick={() => setChosen(false)}>Go Back</Button>
                 <h1 className="text-center p-4 text-5xl mb-10">{training.name}</h1>
                 <form
                     className="text-center grid inline-grid grid-cols-6 gap-4 mx-auto container max-w-3xl"

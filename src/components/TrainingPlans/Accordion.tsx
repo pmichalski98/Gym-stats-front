@@ -1,16 +1,17 @@
 import {useState} from "react";
 import {GoChevronDown, GoChevronLeft, GoTrashcan} from "react-icons/go";
 import {useDeleteTrainingMutation} from "../../store";
-import ShowExercise from "./ShowExercise.jsx";
+import ShowExercise from "./ShowExercise";
+import {Training, Trainings} from "../../types/training";
 
-function Accordion({trainings}) {
+function Accordion({trainings}:Trainings) {
 
     const [deleteTraining] = useDeleteTrainingMutation();
     const [expandedIndex, setExpandedIndex] = useState(NaN);
-    function handleDelete(training) {
+    function handleDelete(training: Training) {
         deleteTraining(training);
     }
-    const handleClick = (index) => {
+    const handleClick = (index:number) => {
         index === expandedIndex ? setExpandedIndex(NaN) : setExpandedIndex(index)
     }
 

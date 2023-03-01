@@ -1,4 +1,4 @@
-import useCountdown from "../../hooks/use-countdown"
+import useCountdown from "../../hooks/use-countdown.js"
 import CountDownPage from "./CountDownPage.jsx";
 
 function TrainingStartedPage({training}) {

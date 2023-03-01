@@ -1,9 +1,16 @@
 import React from 'react';
 import {GoTrashcan} from "react-icons/go";
+import {Exercise, Exercises} from "../../types/training";
 
-function ShowExercise({exercises, onDelete}) {
+interface Props {
+    exercises:Exercises;
+    onDelete?: (index:number) => void
+}
 
-    return exercises.map((exercise, index) => {
+function ShowExercise({exercises, onDelete}:Props) {
+
+    // @ts-ignore
+    return exercises.map((exercise:Exercise, index:number) => {
         return (
             <p key={index} className="flex items-center gap-2">
                 {index + 1} {exercise.name}

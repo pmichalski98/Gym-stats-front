@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-const useCountdown = (startValue, endValue, interval) => {
+const useCountdown = (startValue:number, endValue:number, interval:number):number => {
     const [countDown, setCountDown] = useState(startValue);
 
     useEffect(() => {

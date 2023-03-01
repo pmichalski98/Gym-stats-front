@@ -1,5 +1,6 @@
 import classNames from "classnames";
-function Button({children,primary,secondary,success,warning,outline,pad,rounded,roundedFull,  ...rest}) {
+
+function Button({children,outline,pad,rounded,roundedFull,  ...rest}) {
 
     const classes = classNames(
         rest.className,
@@ -22,7 +23,7 @@ function Button({children,primary,secondary,success,warning,outline,pad,rounded,
 export default Button;
 
 Button.propTypes = {
-    checkIfPropsRepeated: ({primary, secondary, success}) => {
+    checkIfPropsRepeated: ({primary, secondary, success}:any) => {
         const count =
             Number(primary)
             + Number(!!secondary)

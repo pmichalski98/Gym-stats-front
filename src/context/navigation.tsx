@@ -1,7 +1,9 @@
-import {createContext, useEffect, useState} from "react";
+import {createContext, PropsWithChildren, ReactNode, useEffect, useState} from "react";
+import {NavContext} from "../types/training";
 
-const NavigationContext = createContext();
-function NavigationProvider({children}) {
+
+const NavigationContext = createContext<NavContext>(undefined as unknown as NavContext);
+function NavigationProvider({children}:PropsWithChildren):ReactNode {
     const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
     useEffect(() => {
@@ -14,13 +16,13 @@ function NavigationProvider({children}) {
         }
     }, [])
 
-    const navigate = (to) => {
+    const navigate = (to:string) => {
         window.history.pushState({}, '',to);
         setCurrentPath(to);
     }
 
     return (
-        <NavigationContext.Provider value={{currentPath, navigate}}>
+        <NavigationContext.Provider value={{navigate, currentPath}}>
             {children}
         </NavigationContext.Provider>
     );

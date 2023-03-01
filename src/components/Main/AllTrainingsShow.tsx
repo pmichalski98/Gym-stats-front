@@ -1,25 +1,30 @@
 import React, {Fragment, useState} from "react";
-import Button from "../../utilcomponents/Button.jsx";
-import TrainingShow from "./TrainingShow.jsx";
+import Button from "../../utilcomponents/Button";
+import TrainingShow from "./TrainingShow";
+import {Training} from "../../types/training"
 
-function AllTrainingsShow({trainings}) {
+interface TrainingsProps {
+    trainings:Training[]
+}
+
+function AllTrainingsShow({trainings}:TrainingsProps) {
     const [chosen, setChosen] = useState(false);
-    const [chosenTraining, setChosenTraining] = useState(undefined);
+    const [chosenTraining, setChosenTraining] = useState<Training>({} as Training);
 
-    let content;
     let afterChoosing = (
         <div>
             <TrainingShow training={chosenTraining} setChosen={setChosen}/>
         </div>
     );
 
-    function handleChoice(training) {
+    function handleChoice(training:Training) {
         setChosen(true);
         setChosenTraining(training);
     }
 
     let renderedTrainings = trainings.map((training, index) => {
         return (
+            // @ts-ignore
             <Button
                 onClick={() => handleChoice(training)}
                 key={index}
@@ -43,13 +48,7 @@ function AllTrainingsShow({trainings}) {
         </div>
     );
 
-    if (chosen === false) {
-        content = beforeChoosing;
-    } else {
-        content = afterChoosing;
-    }
-
-    // @TODO zrobic reusable input i dokonczyc stylowanie main page
+    let content = !chosen ? beforeChoosing : afterChoosing
 
     return <Fragment>{content}</Fragment>;
 }

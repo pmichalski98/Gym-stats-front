@@ -1,10 +1,12 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
+import {Training} from "../../types/training";
 
 const trainingsApi = createApi({
     reducerPath: 'trainings',
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:3001'
     }),
+    tagTypes: ['Training'],
     endpoints(build) {
         return {
             updateTrainings: build.mutation({

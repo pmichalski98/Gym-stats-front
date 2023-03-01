@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import Button from "../../utilcomponents/Button.jsx";
+import Button from "../../utilcomponents/Button.tsx";
 import TrainingList from "./TrainingList.jsx";
-import AddingTraining from "./AddingTraining"
+import AddingTraining from "./AddingTraining.js"
 
 function Workouts() {
-    const [buttonClicked, setButtonClicked] = useState(false);
+    const [buttonClicked, toggleWindow] = useState(false);
 
     let viewAfterClicking;
     let viewBeforeClicking = (
@@ -15,14 +15,14 @@ function Workouts() {
     );
 
     function handleClick() {
-        setButtonClicked(!buttonClicked);
+        toggleWindow(!buttonClicked);
     }
 
     if (buttonClicked) {
         viewAfterClicking = (
             <>
                 <Button secondary pad onClick={handleClick}>Go back</Button>
-                <AddingTraining toggleWindow={setButtonClicked}/>
+                <AddingTraining toggleWindow={toggleWindow}/>
             </>
         );
     }

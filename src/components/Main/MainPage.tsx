@@ -1,10 +1,11 @@
 import React from 'react';
-import {useFetchAllTrainingsQuery} from "../../store/index.js";
-import AllTrainingsShow from "./AllTrainingsShow.jsx";
+import {useFetchAllTrainingsQuery} from "../../store";
+import AllTrainingsShow from "./AllTrainingsShow";
 
 function MainPage() {
 
-    const {data, error, isFetching} = useFetchAllTrainingsQuery();
+    // dalem null zeby dzialalo
+    const {data, error, isFetching} = useFetchAllTrainingsQuery(null);
 
     let content;
 

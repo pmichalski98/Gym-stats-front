@@ -1,6 +1,6 @@
 import React from 'react';
 
-function GoogleAuth(props) {
+function GoogleAuth() {
 
     // useEffect(() => {
     //     window.gapi.load('client:auth2', () => {

@@ -1,8 +1,8 @@
-import Button from "../../utilComponents/Button";
+import Button from "../../utilcomponents/Button";
 import {useState} from "react";
 import {useAddTrainingMutation} from "../../store";
-import Input from "../../utilComponents/Input";
-import ShowExercise from "./ShowExercise.jsx";
+import Input from "../../utilcomponents/Input";
+import ShowExercise from "./ShowExercise";
 
 function AddingTraining({toggleWindow}) {
     const [exercises, setExercises] = useState([]);
@@ -11,7 +11,7 @@ function AddingTraining({toggleWindow}) {
 
     const [addTraining] = useAddTrainingMutation();
 
-    function handleSubmit(event) {
+    function handleSubmit(event:Event) {
         event.preventDefault();
         const training = {
             name: trainingName,
@@ -21,7 +21,7 @@ function AddingTraining({toggleWindow}) {
         toggleWindow(false)
     }
 
-    function handleExerciseOnChange(event) {
+    function handleExerciseOnChange(event:Event) {
         setExerciseValue(event.target.value);
     }
 
@@ -40,7 +40,7 @@ function AddingTraining({toggleWindow}) {
         setExerciseValue('');
     }
 
-    function handleExerciseDelete(index) {
+    function handleExerciseDelete(index:number) {
         const exercisesAfterDelete = [...exercises];
 
         exercisesAfterDelete.splice(index, 1)
