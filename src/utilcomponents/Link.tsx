@@ -1,12 +1,12 @@
 import useNavigation from "../hooks/use-navigation";
 import classNames from "classnames"
-import React, {PropsWithChildren} from "react";
+import React, {ReactNode} from "react";
 
 type Props = {
     to: string;
-    children: PropsWithChildren;
-    className: [string];
-    activeClassName: [string]
+    children: ReactNode;
+    className: string;
+    activeClassName: string;
 }
 
 function Link({to, children, className, activeClassName}: Props) {

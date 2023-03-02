@@ -32,7 +32,7 @@ const trainingsApi = createApi({
                     };
                 },
             }),
-            fetchAllTrainings: build.query({
+            fetchAllTrainings: build.query<Training[],void>({
                 providesTags: (result, error, trainings) => {
                     return [{type: 'Training'}]
                 },
@@ -43,7 +43,7 @@ const trainingsApi = createApi({
                     };
                 }
             }),
-            addTraining: build.mutation({
+            addTraining: build.mutation<Training,Training>({
                 invalidatesTags: (result, error, training) => {
                     return [{type: 'Training'}]
                 },

@@ -9,8 +9,7 @@ interface Props {
 
 function ShowExercise({exercises, onDelete}:Props) {
 
-    // @ts-ignore
-    return exercises.map((exercise:Exercise, index:number) => {
+    return exercises.map((exercise, index) => {
         return (
             <p key={index} className="flex items-center gap-2">
                 {index + 1} {exercise.name}

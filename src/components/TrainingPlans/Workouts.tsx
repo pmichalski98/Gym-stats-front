@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import Button from "../../utilcomponents/Button.tsx";
-import TrainingList from "./TrainingList.jsx";
-import AddingTraining from "./AddingTraining.js"
+import Button from "../../utilcomponents/Button";
+import TrainingList from "./TrainingList";
+import AddingTraining from "./AddingTraining"
 
 function Workouts() {
     const [buttonClicked, toggleWindow] = useState(false);
@@ -9,7 +9,7 @@ function Workouts() {
     let viewAfterClicking;
     let viewBeforeClicking = (
         <>
-            <Button className="mx-auto m-10 text-2xl px-6 py-3" success rounded onClick={handleClick}>Dodaj plan treningowy</Button>
+            <Button className="mx-auto m-10 text-2xl px-6 py-3" onClick={handleClick} variant="primary">Dodaj plan treningowy</Button>
             <TrainingList/>
         </>
     );
@@ -21,7 +21,7 @@ function Workouts() {
     if (buttonClicked) {
         viewAfterClicking = (
             <>
-                <Button secondary pad onClick={handleClick}>Go back</Button>
+                <Button variant="secondary" onClick={handleClick}>Go back</Button>
                 <AddingTraining toggleWindow={toggleWindow}/>
             </>
         );

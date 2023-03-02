@@ -1,11 +1,13 @@
-import useCountdown from "../../hooks/use-countdown.js"
-import CountDownPage from "./CountDownPage.jsx";
+import useCountdown from "../../hooks/use-countdown"
+import CountDownPage from "./CountDownPage";
+import {Training} from "../../types/training";
 
-function TrainingStartedPage({training}) {
+interface Props {
+    training: Training;
+}
+function TrainingStartedPage({training}:Props) {
 
     let counter = useCountdown(1, 3, 1000);
-
-    console.log(training);
 
     return (
         <>

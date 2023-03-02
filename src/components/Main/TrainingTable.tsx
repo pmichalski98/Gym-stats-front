@@ -1,4 +1,10 @@
-function TrainingTable({config, data}) {
+import {Exercise} from "../../types/training";
+
+interface Props {
+    config:  {label: string, render: (exercise: Exercise, index: number) => (string | number | JSX.Element | undefined)}[]
+    data: Exercise[]
+}
+function TrainingTable({config, data}:Props) {
 
     const renderedLabels = config.map((column, index) => {
 

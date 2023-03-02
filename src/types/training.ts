@@ -1,5 +1,5 @@
 export interface Exercise {
-    id:string;
+    id?:string;
     name:string;
     sets?:number;
     reps?:number;
@@ -7,7 +7,7 @@ export interface Exercise {
 }
 export interface Training {
     name:string;
-    id:string;
+    id?:string;
     exercises: Exercise[]
 }
 
@@ -15,3 +15,5 @@ export interface NavContext {
     currentPath: string;
     navigate: (to:string) => void
 }
+
+export type FormData = Partial<Exercise>

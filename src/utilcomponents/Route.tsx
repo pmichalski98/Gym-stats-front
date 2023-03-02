@@ -1,16 +1,16 @@
 import useNavigation from "../hooks/use-navigation";
-import React from "react";
+import React, {ReactNode} from "react";
 
 type Props = {
     path:string,
-    children:React.ReactNode
+    children:ReactNode
 }
 function Route({path, children}:Props) {
 
     const {currentPath} = useNavigation()
 
     if (currentPath === path) {
-        return {children}
+        return <>{children}</>
     }
     return null
 }

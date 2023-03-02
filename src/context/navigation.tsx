@@ -1,9 +1,9 @@
-import {createContext, PropsWithChildren, ReactNode, useEffect, useState} from "react";
+import React, {createContext, ReactNode, useEffect, useState} from "react";
 import {NavContext} from "../types/training";
 
-
+// TUTAJ
 const NavigationContext = createContext<NavContext>(undefined as unknown as NavContext);
-function NavigationProvider({children}:PropsWithChildren):ReactNode {
+function NavigationProvider({children}: { children : ReactNode }) {
     const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
     useEffect(() => {

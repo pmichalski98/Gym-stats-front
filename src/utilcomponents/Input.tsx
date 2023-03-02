@@ -1,13 +1,14 @@
 import React, {ChangeEvent} from 'react';
 import classNames from "classnames";
+import {FormData} from "../types/training";
 
 interface Props {
-    className: string;
-    value: string;
-    name: string;
+    className?: string;
+    value: string | number | undefined;
+    name?: string;
     type: 'text' | 'number';
     placeholder?:string;
-    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    onChange: (event:ChangeEvent<HTMLInputElement>, fieldName?: keyof FormData) => void;
 }
 
 function Input({className, ...rest}: Props) {

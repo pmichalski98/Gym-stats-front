@@ -1,10 +1,10 @@
 import TrainingTable from "./TrainingTable";
-import React, {ChangeEvent, Fragment, useState} from "react";
+import React, {ChangeEvent, Fragment, SyntheticEvent, useState} from "react";
 import {useUpdateTrainingsMutation} from "../../store";
 import Button from "../../utilcomponents/Button";
 import Input from "../../utilcomponents/Input";
 import TrainingStartedPage from "./TrainingStartedPage";
-import {Exercise, Training} from "../../types/training";
+import {Exercise, FormData, Training} from "../../types/training";
 
 interface Props {
     training: Training;
@@ -14,7 +14,7 @@ interface Props {
 function TrainingShow({training, setChosen}: Props) {
     const [chosenTraining, setChosenTraining] = useState(training);
     const [editRow, setEditRow] = useState<number | null>(null);
-    const [formData, setFormData] = useState<Exercise | null>(null);
+    const [formData, setFormData] = useState<FormData>({});
     const [startTraining, setStartTraining] = useState(false);
 
     const [updateTrainings] = useUpdateTrainingsMutation();
@@ -23,50 +23,41 @@ function TrainingShow({training, setChosen}: Props) {
         updateTrainings(chosenTraining);
     }
 
-    function handleEditFormChange(event: ChangeEvent<HTMLInputElement>, fieldName:string) {
+    function handleEditFormChange(event: ChangeEvent<HTMLInputElement>, fieldName: keyof FormData) {
         event.preventDefault();
 
         const fieldValue = event.target.value;
 
-        const updatedData = {...formData};
-
-        updatedData[fieldName] = fieldName === 'name' ? fieldValue : parseInt(fieldValue);
-        setFormData(updatedData);
+        setFormData({
+            ...formData,
+            [fieldName]: fieldName === 'name' ? fieldValue : parseInt(fieldValue),
+        });
     }
 
-    function handleEdit(event: Event, exercise: Exercise, index: number) {
-        event.preventDefault();
+    function handleEdit(exercise: Exercise, index: number) {
         setEditRow(index);
-        const defaultValues: Exercise = {
-            id: exercise.id,
-            name: exercise.name,
-            sets: exercise.sets,
-            reps: exercise.reps,
-            weight: exercise.weight,
-        }
-        setFormData(defaultValues)
+        setFormData({...exercise})
     }
 
-    function handleSave(event: Event) {
+    function handleSave(event: SyntheticEvent) {
         event.preventDefault();
 
-        if (chosenTraining) {
-            const updatedExercises = chosenTraining.exercises.map((exercise: Exercise) =>
-                exercise.id === formData.id
-                    ? {...exercise, ...formData}
-                    : {...exercise}
-            );
+        const updatedExercises = chosenTraining.exercises.map((exercise: Exercise) =>
+            exercise.id === formData.id
+                ? {...exercise, ...formData}
+                : {...exercise}
+        );
 
-            const trainingAfterEdit = {
-                ...chosenTraining,
-                exercises: updatedExercises,
-            };
+        const trainingAfterEdit = {
+            ...chosenTraining,
+            exercises: updatedExercises,
+        };
 
-            setChosenTraining(trainingAfterEdit);
-            setEditRow(null);
-        }
+        setChosenTraining(trainingAfterEdit);
+        setEditRow(null);
     }
 
+//TUTAJ
     function showInputOrLabel(index: number, name: string, label: string | number | undefined, value: string | number | undefined) {
         return editRow === index ? (
             <Input
@@ -84,8 +75,6 @@ function TrainingShow({training, setChosen}: Props) {
         setStartTraining(!startTraining)
     }
 
-    //@TODO Keep refactoring to typescript. Need to change Input/Button components
-    // @ts-ignore
     const config = [
         {
             label: "",
@@ -111,19 +100,16 @@ function TrainingShow({training, setChosen}: Props) {
             label: "Actions",
             render: (exercise: Exercise, index: number) =>
                 index !== editRow ? (
-                    // @ts-ignore
                     <Button
-                        success
-                        pad
+                        variant="success"
                         rounded
                         key={index}
-                        onClick={(event: Event) => handleEdit(event, exercise, index)}
+                        onClick={() => handleEdit(exercise, index)}
                     >
                         Edit
                     </Button>
                 ) : (
-                    // @ts-ignore
-                    <Button success pad rounded key={index} type="submit">
+                    <Button variant="primary" key={index} type="submit">
                         Save
                     </Button>
                 ),
@@ -133,7 +119,7 @@ function TrainingShow({training, setChosen}: Props) {
     const contentBeforeTrainingStarted = (
         <Fragment>
             <div className="container mx-auto w-fit my-14 ">
-                <Button secondary rounded pad onClick={() => setChosen(false)}>Go Back</Button>
+                <Button variant="secondary" rounded onClick={() => setChosen(false)}>Go Back</Button>
                 <h1 className="text-center p-4 text-5xl mb-10">{training.name}</h1>
                 <form
                     className="text-center grid inline-grid grid-cols-6 gap-4 mx-auto container max-w-3xl"
@@ -142,10 +128,11 @@ function TrainingShow({training, setChosen}: Props) {
                     <TrainingTable config={config} data={chosenTraining.exercises}/>
                 </form>
                 <div className="flex place-content-end ">
-                    <Button className="mt-10" primary pad rounded onClick={handleSavingTraining}>Save training</Button>
+                    <Button className="mt-10" variant="primary" rounded onClick={handleSavingTraining}>Save
+                        training</Button>
                 </div>
             </div>
-            <Button onClick={startTrainingClick} primary className="text-6xl px-9 py-6 mx-auto rounded mt-10">
+            <Button onClick={startTrainingClick} variant="primary" className="text-6xl px-9 py-6 mx-auto rounded mt-10">
                 START TRAINING
             </Button>
         </Fragment>

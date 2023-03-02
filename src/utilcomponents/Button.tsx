@@ -4,9 +4,11 @@ import {ReactNode} from "react";
 interface Props {
     children: ReactNode;
     variant: "primary" | "secondary" | "success";
-    outlined: boolean;
-    rounded: boolean;
-    className: string;
+    outlined?: boolean;
+    rounded?: boolean;
+    className?: string;
+    type?:string
+    onClick?:(event?: MouseEvent) => void;
 }
 
 function Button({children, outlined, rounded, className,variant, ...rest}: Props) {
@@ -23,7 +25,7 @@ function Button({children, outlined, rounded, className,variant, ...rest}: Props
             'rounded-full': rounded,
         }
         , className);
-
+//@ts-ignore
     return <button {...rest} className={classes}>{children}</button>
 }
 

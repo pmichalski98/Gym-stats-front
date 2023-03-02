@@ -23,6 +23,7 @@ function Accordion({trainings}: Props) {
 
         const isExpanded = index === expandedIndex;
 
+        // @ts-ignore
         const content = isExpanded && <div className=" border-b p-5"><ShowExercise exercises={training.exercises}/></div>
 
         const expandIcon = <span>{isExpanded ? <GoChevronDown/> : <GoChevronLeft/>}</span>

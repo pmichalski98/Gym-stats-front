@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CountDownPage({counter}) {
+function CountDownPage({counter}:{counter: number}) {
 
     return (
         <div className=" mx-auto">

@@ -28,8 +28,8 @@ function AllTrainingsShow({trainings}:TrainingsProps) {
                 onClick={() => handleChoice(training)}
                 key={index}
                 className="rounded font-bold text-5xl px-6 py-3 mx-auto"
-                primary
-            >
+                variant="primary"
+             >
                 {training.name}
             </Button>
         );

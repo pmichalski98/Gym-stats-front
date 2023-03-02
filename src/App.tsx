@@ -1,7 +1,7 @@
 import Route from "./utilcomponents/Route";
 import Navbar from "./components/Navbar";
 import MainPage from "./components/Main/MainPage";
-import Workouts from "./components/TrainingPlans/Workouts.jsx";
+import Workouts from "./components/TrainingPlans/Workouts";
 import GoogleAuth from "./components/GoogleAuth";
 
 function App() {

@@ -1,31 +1,35 @@
 import Button from "../../utilcomponents/Button";
-import {useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import {useAddTrainingMutation} from "../../store";
 import Input from "../../utilcomponents/Input";
 import ShowExercise from "./ShowExercise";
+import {Exercise} from "../../types/training";
 
-function AddingTraining({toggleWindow}) {
-    const [exercises, setExercises] = useState([]);
+interface Props {
+    toggleWindow: (value: boolean) => void
+}
+
+function AddingTraining({toggleWindow}: Props) {
+    const [exercises, setExercises] = useState<Exercise[]>([]);
     const [exerciseValue, setExerciseValue] = useState('');
     const [trainingName, setTrainingName] = useState('');
 
     const [addTraining] = useAddTrainingMutation();
 
-    function handleSubmit(event:Event) {
+    function handleSubmit(event: FormEvent) {
         event.preventDefault();
-        const training = {
+        addTraining({
             name: trainingName,
             exercises: exercises,
-        }
-        addTraining(training);
+        });
         toggleWindow(false)
     }
 
-    function handleExerciseOnChange(event:Event) {
+    function handleExerciseOnChange(event: ChangeEvent<HTMLInputElement>) {
         setExerciseValue(event.target.value);
     }
 
-    function handleTrainingNameChange(event) {
+    function handleTrainingNameChange(event: ChangeEvent<HTMLInputElement>) {
         setTrainingName(event.target.value);
     }
 
@@ -47,12 +51,11 @@ function AddingTraining({toggleWindow}) {
         setExercises(exercisesAfterDelete);
     }
 
-    const saveTrainingBtn = exercises.length > 0 &&
-        <Button onClick={handleSubmit} success pad rounded className="mt-4 mx-auto">Zapisz trening</Button>
+    const saveTrainingBtn = exercises.length > 0 && <Button type="submit" variant="success" rounded className="mt-4 mx-auto">Zapisz trening</Button>
 
-    const addExerciseBtn = <Button onClick={handleAddingExercise} className="mx-auto mt-4" primary pad rounded>Dodaj
-        cwiczenie</Button>
+    const addExerciseBtn = <Button onClick={handleAddingExercise} className="mx-auto mt-4" variant="primary" rounded>Dodaj cwiczenie</Button>
 
+    // @ts-ignore
     const renderedExercises = <ShowExercise exercises={exercises} onDelete={handleExerciseDelete}/>
 
     const trainingNameInput =
