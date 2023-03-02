@@ -18,7 +18,7 @@ function Link({to, children, className, activeClassName}: Props) {
         currentPath === to && activeClassName
     )
 
-    function handleClick(event: KeyboardEvent) {
+    function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
         if (event.metaKey || event.ctrlKey) {
             return;
         }
@@ -27,7 +27,7 @@ function Link({to, children, className, activeClassName}: Props) {
     }
 
     return (
-        <a className={classes} href={to} onClick={() => handleClick}><>{children}</>
+        <a className={classes} href={to} onClick={handleClick}><>{children}</>
         </a>
     )
 }

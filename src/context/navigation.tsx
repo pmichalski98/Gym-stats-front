@@ -21,7 +21,7 @@ function NavigationProvider({children}: { children : ReactNode }) {
     }
 
     return (
-        <NavigationContext.Provider value={{navigate, currentPath}}>
+        <NavigationContext.Provider value={{currentPath, navigate}}>
             {children}
         </NavigationContext.Provider>
     );
