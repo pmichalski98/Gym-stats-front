@@ -102,13 +102,13 @@ function TrainingShow({training, setChosen}: Props) {
                     <Button
                         variant="success"
                         rounded
-                        key={index}
+                        key={index + "edit"}
                         onClick={() => handleEdit(exercise, index)}
                     >
                         Edit
                     </Button>
                 ) : (
-                    <Button variant="primary" key={index} type="submit">
+                    <Button variant="primary" key={index + "save"} type="submit">
                         Save
                     </Button>
                 ),

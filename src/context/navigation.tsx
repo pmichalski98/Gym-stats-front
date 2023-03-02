@@ -1,7 +1,7 @@
 import React, {createContext, ReactNode, useEffect, useState} from "react";
 import {NavContext} from "../types/training";
 
-const NavigationContext = createContext<NavContext>({} as NavContext);
+const NavigationContext = createContext<NavContext>(undefined as unknown as NavContext);
 function NavigationProvider({children}: { children : ReactNode }) {
     const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
