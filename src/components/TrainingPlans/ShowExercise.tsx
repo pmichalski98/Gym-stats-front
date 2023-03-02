@@ -9,7 +9,7 @@ interface Props {
 
 function ShowExercise({exercises, onDelete}:Props) {
 
-    return exercises.map((exercise, index) => {
+    const renderedExercises = exercises.map((exercise, index) => {
         return (
             <p key={index} className="flex items-center gap-2">
                 {index + 1} {exercise.name}
@@ -17,6 +17,8 @@ function ShowExercise({exercises, onDelete}:Props) {
             </p>
         );
     })
+
+    return <>{renderedExercises}</>
 }
 
 export default ShowExercise;

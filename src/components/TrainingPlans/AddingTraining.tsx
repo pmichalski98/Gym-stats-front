@@ -55,7 +55,6 @@ function AddingTraining({toggleWindow}: Props) {
 
     const addExerciseBtn = <Button onClick={handleAddingExercise} className="mx-auto mt-4" variant="primary" rounded>Dodaj cwiczenie</Button>
 
-    // @ts-ignore
     const renderedExercises = <ShowExercise exercises={exercises} onDelete={handleExerciseDelete}/>
 
     const trainingNameInput =
