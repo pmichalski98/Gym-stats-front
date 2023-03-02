@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import {ReactNode} from "react";
+import React, {ReactNode} from "react";
 
 interface Props {
     children: ReactNode;
@@ -7,8 +7,8 @@ interface Props {
     outlined?: boolean;
     rounded?: boolean;
     className?: string;
-    type?:string
-    onClick?:(event?: MouseEvent) => void;
+    type?: "button" | "submit" | "reset";
+    onClick?:(event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 function Button({children, outlined, rounded, className,variant, ...rest}: Props) {
@@ -25,7 +25,7 @@ function Button({children, outlined, rounded, className,variant, ...rest}: Props
             'rounded-full': rounded,
         }
         , className);
-//@ts-ignore
+
     return <button {...rest} className={classes}>{children}</button>
 }
 

@@ -57,14 +57,13 @@ function TrainingShow({training, setChosen}: Props) {
         setEditRow(null);
     }
 
-//TUTAJ
-    function showInputOrLabel(index: number, name: string, label: string | number | undefined, value: string | number | undefined) {
+    function showInputOrLabel(index: number, name: keyof FormData, label: string | number | undefined, value: string | number | undefined) {
         return editRow === index ? (
             <Input
                 type={typeof value === "number" ? "number" : "text"}
                 name={name}
                 value={value}
-                onChange={handleEditFormChange}
+                onChange={(event) => handleEditFormChange(event,name)}
             />
         ) : (
             name === "weight" ? label + ' kg' : label
