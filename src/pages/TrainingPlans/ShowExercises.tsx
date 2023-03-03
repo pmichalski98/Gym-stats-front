@@ -7,7 +7,7 @@ interface Props {
     onDelete?: (index:number) => void
 }
 
-function ShowExercise({exercises, onDelete}:Props) {
+function ShowExercises({exercises, onDelete}:Props) {
 
     const renderedExercises = exercises.map((exercise, index) => {
         return (
@@ -21,4 +21,4 @@ function ShowExercise({exercises, onDelete}:Props) {
     return <>{renderedExercises}</>
 }
 
-export default ShowExercise;
+export default ShowExercises;

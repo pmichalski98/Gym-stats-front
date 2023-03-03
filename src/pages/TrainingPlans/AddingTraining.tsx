@@ -1,17 +1,17 @@
-import Button from "../../utilcomponents/Button";
+import Button from "../../components/Button";
 import {ChangeEvent, FormEvent, useState} from "react";
 import {useAddTrainingMutation} from "../../store";
-import Input from "../../utilcomponents/Input";
-import ShowExercise from "./ShowExercise";
+import Input from "../../components/Input";
+import ShowExercises from "./ShowExercises";
 import {Exercise} from "../../types/training";
 
 interface Props {
-    toggleWindow: (value: boolean) => void
+    goBackBtn: (value: boolean) => void
 }
 
-function AddingTraining({toggleWindow}: Props) {
+function AddingTraining({goBackBtn}: Props) {
     const [exercises, setExercises] = useState<Exercise[]>([]);
-    const [exerciseValue, setExerciseValue] = useState('');
+    const [exerciseName, setExerciseName] = useState('');
     const [trainingName, setTrainingName] = useState('');
 
     const [addTraining] = useAddTrainingMutation();
@@ -22,11 +22,11 @@ function AddingTraining({toggleWindow}: Props) {
             name: trainingName,
             exercises: exercises,
         });
-        toggleWindow(false)
+        goBackBtn(false)
     }
 
     function handleExerciseOnChange(event: ChangeEvent<HTMLInputElement>) {
-        setExerciseValue(event.target.value);
+        setExerciseName(event.target.value);
     }
 
     function handleTrainingNameChange(event: ChangeEvent<HTMLInputElement>) {
@@ -37,11 +37,11 @@ function AddingTraining({toggleWindow}: Props) {
         setExercises([
                 ...exercises,
                 {
-                    name: exerciseValue,
+                    name: exerciseName,
                 }
             ]
         );
-        setExerciseValue('');
+        setExerciseName('');
     }
 
     function handleExerciseDelete(index:number) {
@@ -51,11 +51,11 @@ function AddingTraining({toggleWindow}: Props) {
         setExercises(exercisesAfterDelete);
     }
 
-    const saveTrainingBtn = exercises.length > 0 && <Button type="submit" variant="success" rounded className="mt-4 mx-auto">Zapisz trening</Button>
+    const saveTrainingBtn = exercises.length > 0 && <Button type="submit" variant="success" rounded className="mt-4 mx-auto">Dodaj trening</Button>
 
     const addExerciseBtn = <Button onClick={handleAddingExercise} className="mx-auto mt-4" variant="primary" rounded>Dodaj cwiczenie</Button>
 
-    const renderedExercises = <ShowExercise exercises={exercises} onDelete={handleExerciseDelete}/>
+    const renderedExercises = <ShowExercises exercises={exercises} onDelete={handleExerciseDelete}/>
 
     const trainingNameInput =
         <Input
@@ -71,7 +71,7 @@ function AddingTraining({toggleWindow}: Props) {
             className="max-w-xs my-2 mt-4"
             onChange={handleExerciseOnChange}
             type="text"
-            value={exerciseValue}
+            value={exerciseName}
             placeholder="Nazwa cwiczenia"
         />
 

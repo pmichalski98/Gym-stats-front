@@ -1,6 +1,6 @@
-import React, {Fragment, useState} from "react";
-import Button from "../../utilcomponents/Button";
-import TrainingShow from "./TrainingShow";
+import React, {useState} from "react";
+import Button from "../../components/Button";
+import ChosenTrainingShow from "./ChosenTrainingShow";
 import {Training} from "../../types/training"
 
 interface TrainingsProps {
@@ -11,29 +11,23 @@ function AllTrainingsShow({trainings}:TrainingsProps) {
     const [chosen, setChosen] = useState(false);
     const [chosenTraining, setChosenTraining] = useState<Training>({} as Training);
 
-    let afterChoosing = (
-        <div>
-            <TrainingShow training={chosenTraining} setChosen={setChosen}/>
-        </div>
-    );
-
     function handleChoice(training:Training) {
         setChosen(true);
         setChosenTraining(training);
     }
 
-    let renderedTrainings = trainings.map((training, index) => {
-        return (
+    let renderedTrainings = trainings.map(training =>
             <Button
                 onClick={() => handleChoice(training)}
-                key={index}
+                key={training.id}
                 className="rounded font-bold text-5xl px-6 py-3 mx-auto"
                 variant="primary"
              >
                 {training.name}
             </Button>
         );
-    });
+
+    let afterChoosing = <ChosenTrainingShow training={chosenTraining} setChosen={setChosen}/>
 
     let beforeChoosing = (
         <div className="w-10/12 mx-auto text-center mt-6">
@@ -46,10 +40,7 @@ function AllTrainingsShow({trainings}:TrainingsProps) {
             </div>
         </div>
     );
-
-    let content = !chosen ? beforeChoosing : afterChoosing
-
-    return <Fragment>{content}</Fragment>;
+    return <>{!chosen ? beforeChoosing : afterChoosing}</>;
 }
 
 export default AllTrainingsShow;

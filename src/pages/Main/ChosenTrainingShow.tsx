@@ -1,8 +1,8 @@
 import TrainingTable from "./TrainingTable";
 import React, {ChangeEvent, Fragment, SyntheticEvent, useState} from "react";
 import {useUpdateTrainingsMutation} from "../../store";
-import Button from "../../utilcomponents/Button";
-import Input from "../../utilcomponents/Input";
+import Button from "../../components/Button";
+import Input from "../../components/Input";
 import TrainingStartedPage from "./TrainingStartedPage";
 import {Exercise, FormData, Training} from "../../types/training";
 
@@ -11,7 +11,7 @@ interface Props {
     setChosen: (value: boolean) => void
 }
 
-function TrainingShow({training, setChosen}: Props) {
+function ChosenTrainingShow({training, setChosen}: Props) {
     const [chosenTraining, setChosenTraining] = useState(training);
     const [editRow, setEditRow] = useState<number | null>(null);
     const [formData, setFormData] = useState<FormData>({});
@@ -34,12 +34,12 @@ function TrainingShow({training, setChosen}: Props) {
         });
     }
 
-    function handleEdit(exercise: Exercise, index: number) {
+    function handleEditBtn(exercise: Exercise, index: number) {
         setEditRow(index);
         setFormData({...exercise})
     }
 
-    function handleSave(event: SyntheticEvent) {
+    function handleSaveBtn(event: SyntheticEvent) {
         event.preventDefault();
 
         const updatedExercises = chosenTraining.exercises.map((exercise: Exercise) =>
@@ -47,13 +47,10 @@ function TrainingShow({training, setChosen}: Props) {
                 ? {...exercise, ...formData}
                 : {...exercise}
         );
-
-        const trainingAfterEdit = {
+        setChosenTraining({
             ...chosenTraining,
             exercises: updatedExercises,
-        };
-
-        setChosenTraining(trainingAfterEdit);
+        });
         setEditRow(null);
     }
 
@@ -103,7 +100,7 @@ function TrainingShow({training, setChosen}: Props) {
                         variant="success"
                         rounded
                         key={index + "edit"}
-                        onClick={() => handleEdit(exercise, index)}
+                        onClick={() => handleEditBtn(exercise, index)}
                     >
                         Edit
                     </Button>
@@ -122,7 +119,7 @@ function TrainingShow({training, setChosen}: Props) {
                 <h1 className="text-center p-4 text-5xl mb-10">{training.name}</h1>
                 <form
                     className="text-center grid inline-grid grid-cols-6 gap-4 mx-auto container max-w-3xl"
-                    onSubmit={handleSave}
+                    onSubmit={handleSaveBtn}
                 >
                     <TrainingTable config={config} data={chosenTraining.exercises}/>
                 </form>
@@ -146,4 +143,4 @@ function TrainingShow({training, setChosen}: Props) {
     );
 }
 
-export default TrainingShow;
+export default ChosenTrainingShow;

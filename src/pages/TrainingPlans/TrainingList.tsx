@@ -1,6 +1,6 @@
 import React from 'react';
 import {useFetchAllTrainingsQuery} from "../../store";
-import Accordion from "./Accordion.js";
+import Accordion from "./Accordion";
 
 function TrainingList() {
 

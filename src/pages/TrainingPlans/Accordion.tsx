@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {GoChevronDown, GoChevronLeft, GoTrashcan} from "react-icons/go";
 import {useDeleteTrainingMutation} from "../../store";
-import ShowExercise from "./ShowExercise";
+import ShowExercises from "./ShowExercises";
 import {Training} from "../../types/training";
 
 interface Props {
@@ -15,7 +15,7 @@ function Accordion({trainings}: Props) {
     function handleDelete(training: Training) {
         deleteTraining(training);
     }
-    const handleClick = (index:number) => {
+    const handleExpandClick = (index:number) => {
         index === expandedIndex ? setExpandedIndex(NaN) : setExpandedIndex(index)
     }
 
@@ -23,7 +23,7 @@ function Accordion({trainings}: Props) {
 
         const isExpanded = index === expandedIndex;
 
-        const content = isExpanded && <div className=" border-b p-5"><ShowExercise exercises={training.exercises}/></div>
+        const content = index === expandedIndex && <div className=" border-b p-5"><ShowExercises exercises={training.exercises}/></div>
 
         const expandIcon = <span>{isExpanded ? <GoChevronDown/> : <GoChevronLeft/>}</span>
 
@@ -31,7 +31,7 @@ function Accordion({trainings}: Props) {
             <div key={training.id}>
                 <div
                     className=" flex justify-between p-3 border-b items-center cursor-pointer"
-                    onClick={() => handleClick(index)}
+                    onClick={() => handleExpandClick(index)}
                 >
                     <GoTrashcan onClick={() => handleDelete(training)}/>
                     {training.name}
