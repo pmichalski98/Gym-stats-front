@@ -1,22 +1,16 @@
-import Route from "./utilcomponents/Route";
-import Navbar from "./components/Navbar";
 import MainPage from "./components/Main/MainPage";
+import {Route, Routes} from "react-router-dom";
 import Workouts from "./components/TrainingPlans/Workouts";
-import GoogleAuth from "./components/GoogleAuth";
+import Navbar from "./components/Navbar";
 
 function App() {
     return (
         <div className="bg-backgroundBlue h-screen text-textWhite ">
             <Navbar/>
-            <Route path='/'>
-                <MainPage/>
-            </Route>
-            <Route path='/plan-treningowy'>
-                <Workouts/>
-            </Route>
-            <Route path='/google'>
-                <GoogleAuth/>
-            </Route>
+            <Routes>
+                <Route path="/" element={<MainPage/>}/>
+                <Route path="/plans" element={<Workouts/>}/>
+            </Routes>
         </div>
     )
 }

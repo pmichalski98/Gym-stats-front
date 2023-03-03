@@ -1,24 +1,26 @@
-import Link from "../utilcomponents/Link";
+import {NavLink} from "react-router-dom";
 
 function Navbar() {
     const links = [
         {label: 'Stats', path: '/statystyki'},
-        {label: 'Plany', path: '/plan-treningowy'},
+        {label: 'Plany', path: '/plans'},
         {label: 'Start', path: '/'},
         {label: 'Pomiary', path: '/pomiary'},
         {label: 'Login', path: '/google'},
     ];
 
+    const active =  "text-xl text-red-500 hover:text-cyan focus:outline-cyan outline-none rounded p-1 mb-1"
+    const notActive = "text-xl hover:text-cyan focus:outline-cyan outline-none rounded p-1 mb-1"
+
     const renderedLinks = links.map((link) => {
         return (
-            <Link
+            <NavLink
                 to={link.path}
                 key={link.label}
-                className="text-xl hover:text-cyan focus:outline-cyan outline-none rounded p-1 mb-1"
-                activeClassName="font-bold border-l-4 border-cyan pl-2 text-cyan"
+                className={({isActive}) => isActive ? active : notActive }
             >
                 {link.label}
-            </Link>
+            </NavLink>
         );
     });
 
