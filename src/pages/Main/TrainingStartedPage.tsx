@@ -7,7 +7,6 @@ interface Props {
 }
 function TrainingStartedPage({training}:Props) {
 
-
     let counter = useCountdown(1, 3, 1000);
 
     return (
