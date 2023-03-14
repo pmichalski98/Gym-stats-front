@@ -6,7 +6,7 @@ function Navbar() {
         {label: 'Plany', path: '/plans'},
         {label: 'Start', path: '/'},
         {label: 'Pomiary', path: '/body'},
-        {label: 'Login', path: '/google'},
+        {label: 'Login', path: '/login'},
     ];
 
     const notActive = "text-xl hover:text-cyan focus:outline-cyan outline-none rounded p-1 mb-1"

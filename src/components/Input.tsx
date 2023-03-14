@@ -6,7 +6,7 @@ interface Props {
     className?: string;
     value: string | number | undefined;
     name?: string;
-    type: 'text' | 'number';
+    type: 'text' | 'number' | 'email' | 'password';
     placeholder?:string;
     onChange: (event:ChangeEvent<HTMLInputElement>, fieldName?: keyof FormData) => void;
 }
