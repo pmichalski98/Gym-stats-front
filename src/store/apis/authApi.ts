@@ -26,10 +26,18 @@ const authApi = createApi({
                         method: 'POST',
                     }
                 }
+            }),
+            signout: build.mutation<any,void>({
+                query() {
+                    return {
+                        url: '/auth/signout',
+                        method: 'POST',
+                    }
+                }
             })
         }
     }
 })
 
-export const { useSigninMutation, useSignupMutation } = authApi;
+export const { useSigninMutation, useSignupMutation, useSignoutMutation } = authApi;
 export { authApi };
