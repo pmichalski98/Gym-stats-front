@@ -4,7 +4,8 @@ import {Training} from "../../types/training";
 const trainingsApi = createApi({
     reducerPath: 'trainings',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:3001'
+        baseUrl: 'http://localhost:3001',
+        credentials: "include",
     }),
     tagTypes: ['Training'],
     endpoints(build) {

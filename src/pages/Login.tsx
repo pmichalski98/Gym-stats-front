@@ -2,7 +2,6 @@ import React, {ChangeEvent, useState} from 'react';
 import Button from "../components/Button";
 import Input from "../components/Input";
 import {useFetchAllTrainingsQuery, useSigninMutation, useSignoutMutation} from "../store";
-import {useSignIn} from "react-auth-kit";
 
 function Login() {
 
@@ -12,7 +11,6 @@ function Login() {
     const [signin] = useSigninMutation();
     const [signout] = useSignoutMutation();
     const {data, isLoading, isError} = useFetchAllTrainingsQuery();
-    const signIn = useSignIn();
 
     function emailOnChange(event: ChangeEvent<HTMLInputElement>) {
         setEmailValue(event.target.value);
@@ -32,19 +30,7 @@ function Login() {
 
     const handleTest = async () => {
         try {
-            const res = await fetch('http://localhost:3001/auth/signin', {
-                //@ts-ignore
-                headers : {
-                    'Access-Control-Allow-Credentials': true,
-                },
-                method: "POST",
-                credentials: "include",
-                body: JSON.stringify({
-                    email : 'test@gmail.com',
-                    password: 'test',
-                }),
-            })
-            console.log(res)
+
         } catch (e) {
             console.log(e)
         }

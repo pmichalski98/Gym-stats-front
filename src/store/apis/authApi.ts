@@ -4,7 +4,8 @@ import {AuthDto} from "../../types/authDto";
 const authApi = createApi({
     reducerPath: 'auth',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:3001'
+        baseUrl: 'http://localhost:3001',
+        credentials: "include",
     }),
     tagTypes: ['Auth'],
     endpoints(build) {
