@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {AuthDto} from "../../types/authDto";
+import {Auth, User} from "../../types/auth";
 
 const authApi = createApi({
     reducerPath: 'auth',
@@ -10,8 +10,8 @@ const authApi = createApi({
     tagTypes: ['Auth'],
     endpoints(build) {
         return {
-            signup: build.mutation<any,AuthDto>({
-                query(signupDto: AuthDto) {
+            signup: build.mutation<User,Auth>({
+                query(signupDto: Auth) {
                     return {
                         url: '/auth/signup',
                         body: signupDto,
@@ -19,8 +19,8 @@ const authApi = createApi({
                     }
                 }
             }),
-            signin: build.mutation<any,AuthDto>({
-                query(signinDto: AuthDto) {
+            signin: build.mutation<User,Auth>({
+                query(signinDto: Auth) {
                     return {
                         url: '/auth/signin',
                         body: signinDto,

@@ -1,24 +1,28 @@
-import MainPage from "./pages/Main/MainPage";
 import {Route, Routes} from "react-router-dom";
-import Navbar from "./pages/Navbar";
 import React from "react";
+import Login from "./pages/Auth/Login";
+import Signup from "./pages/Auth/Signup";
+import PrivateRoutes from "./components/PrivateRoutes";
 import Workouts from "./pages/TrainingPlans/Workouts";
-import Login from "./pages/Login";
-import {RequireAuth} from "react-auth-kit";
+import MainPage from "./pages/Main/MainPage";
+import Navbar from "./pages/Navbar";
+import Stats from "./pages/Stats/Stats";
+import Body from "./pages/Body/Body";
 
 function App() {
     return (
         <div className="bg-primary h-screen text-textWhite ">
             <Navbar/>
-            <Routes>
-                <Route path="/secure" element={
-                    <RequireAuth loginPath={'/'}>
-                        <MainPage/>
-                    </RequireAuth>
-                }/>
-                <Route path='/' element={<Login/>}/>
-                <Route path="/plans" element={<Workouts/>}/>
-            </Routes>
+                <Routes>
+                    <Route path="/" element={<PrivateRoutes/>}>
+                        <Route element={<MainPage/>} path="/"/>
+                        <Route element={<Workouts/>} path="/plans"/>
+                        <Route element={<Stats/>} path="/stats"/>
+                        <Route element={<Body/>} path="/body"/>
+                    </Route>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/signup" element={<Signup/>}/>
+                </Routes>
         </div>
     )
 }

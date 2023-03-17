@@ -54,7 +54,7 @@ const trainingsApi = createApi({
                         method: 'POST',
                         body: {
                             id: training.id,
-                            name: training.name,
+                            title: training.title,
                             exercises: training.exercises
                         },
                     }

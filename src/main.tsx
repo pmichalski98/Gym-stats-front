@@ -5,13 +5,13 @@ import {Provider} from "react-redux";
 import {store} from "./store";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
-import {AuthProvider} from "react-auth-kit";
+import AuthProvider from "./contexts/AuthContext";
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
         <Provider store={store}>
-            <AuthProvider authType={'cookie'} authName={"_auth"} cookieDomain={window.location.hostname}>
+            <AuthProvider>
                 <BrowserRouter>
                     <App/>
                 </BrowserRouter>

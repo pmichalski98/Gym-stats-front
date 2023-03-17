@@ -23,7 +23,7 @@ function AllTrainingsShow({trainings}:TrainingsProps) {
                 className="rounded font-bold text-5xl px-6 py-3 mx-auto"
                 variant="primary"
              >
-                {training.name}
+                {training.title}
             </Button>
         );
 

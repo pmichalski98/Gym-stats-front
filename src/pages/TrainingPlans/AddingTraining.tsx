@@ -19,7 +19,7 @@ function AddingTraining({goBackBtn}: Props) {
     function handleSubmit(event: FormEvent) {
         event.preventDefault();
         addTraining({
-            name: trainingName,
+            title: trainingName,
             exercises: exercises,
         });
         goBackBtn(false)

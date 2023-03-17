@@ -6,7 +6,7 @@ export interface Exercise {
     weight?:number;
 }
 export interface Training {
-    name:string;
+    title:string;
     id?:string;
     exercises: Exercise[]
 }

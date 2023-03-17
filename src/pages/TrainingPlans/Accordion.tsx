@@ -34,7 +34,7 @@ function Accordion({trainings}: Props) {
                     onClick={() => handleExpandClick(index)}
                 >
                     <GoTrashcan onClick={() => handleDelete(training)}/>
-                    {training.name}
+                    {training.title}
                     {expandIcon}
                 </div>
                 {content}

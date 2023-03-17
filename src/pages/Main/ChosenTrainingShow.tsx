@@ -20,7 +20,12 @@ function ChosenTrainingShow({training, setChosen}: Props) {
     const [updateTrainings] = useUpdateTrainingsMutation();
 
     function handleSavingTraining() {
-        updateTrainings(chosenTraining);
+        console.log(chosenTraining)
+        try {
+            updateTrainings(chosenTraining);
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     function handleEditFormChange(event: ChangeEvent<HTMLInputElement>, fieldName: keyof FormData) {
@@ -116,7 +121,7 @@ function ChosenTrainingShow({training, setChosen}: Props) {
         <Fragment>
             <div className="container mx-auto w-fit my-14 ">
                 <Button variant="secondary" rounded onClick={() => setChosen(false)}>Go Back</Button>
-                <h1 className="text-center p-4 text-5xl mb-10">{training.name}</h1>
+                <h1 className="text-center p-4 text-5xl mb-10">{training.title}</h1>
                 <form
                     className="text-center grid inline-grid grid-cols-6 gap-4 mx-auto container max-w-3xl"
                     onSubmit={handleSaveBtn}
