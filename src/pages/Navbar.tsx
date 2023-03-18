@@ -27,7 +27,7 @@ function Navbar() {
     const handleLogout = async () => {
         await signout();
         setCurrentUser(undefined);
-        navigate('/signin')
+        navigate('/login')
     }
     return (
         <nav className="flex justify-center justify-around border-b-4 border-cyan pt-3 ">

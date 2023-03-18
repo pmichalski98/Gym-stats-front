@@ -11,6 +11,7 @@ module.exports = {
         'lightWhite' : 'rgba(255,255,255,0.76)',
         'cyan' : '#00D8FF',
         'darkerCyan' : '#0099fa',
+        'darkblue': '$0A233F',
         'cyan-linear' : '',
       },
       backgroundColor: {
