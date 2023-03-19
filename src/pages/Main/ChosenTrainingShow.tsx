@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Fragment, SyntheticEvent, useState } from "react";
+import React, { ChangeEvent, SyntheticEvent, useState } from "react";
 import TrainingTable from "./TrainingTable";
 import { useUpdateTrainingsMutation } from "../../store";
 import Button from "../../components/Button";
@@ -20,7 +20,6 @@ function ChosenTrainingShow({ training, setChosen }: Props) {
   const [updateTrainings] = useUpdateTrainingsMutation();
 
   function handleSavingTraining() {
-    console.log(chosenTraining);
     try {
       updateTrainings(chosenTraining);
     } catch (e) {
@@ -38,7 +37,7 @@ function ChosenTrainingShow({ training, setChosen }: Props) {
 
     setFormData({
       ...formData,
-      [fieldName]: fieldName === "name" ? fieldValue : parseInt(fieldValue),
+      [fieldName]: fieldName === "name" ? fieldValue : Number(fieldValue),
     });
   }
 

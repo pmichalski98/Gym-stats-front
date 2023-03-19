@@ -4,10 +4,10 @@ import { useAuth } from "../../contexts/AuthContext";
 import { User } from "../../types/auth";
 
 function PrivateRoutes() {
-  const { setCurrentUser } = useAuth();
+  const { currentUser, setCurrentUser } = useAuth();
   const currUser: User = JSON.parse(localStorage.getItem("auth"));
   useEffect(() => {
-    if (currUser === null) {
+    if (currentUser === undefined) {
       setCurrentUser(currUser);
     }
   }, []);
