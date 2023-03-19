@@ -1,11 +1,11 @@
-import React from "react";
 import { useFetchAllTrainingsQuery } from "../../store";
 import Accordion from "./Accordion";
 
 function TrainingList() {
+  // should type this
   const { data, error, isFetching } = useFetchAllTrainingsQuery();
 
-  let content;
+  let content: JSX.Element;
 
   if (isFetching) {
     content = <h1>Data is loading...</h1>;

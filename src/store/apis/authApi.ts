@@ -7,7 +7,7 @@ const authApi = createApi({
     baseUrl: "http://localhost:3001",
     credentials: "include",
   }),
-  tagTypes: ["Auth"],
+  tagTypes: ["Auth", "Training"],
   endpoints(build) {
     return {
       signup: build.mutation<User, Auth>({
@@ -20,6 +20,9 @@ const authApi = createApi({
         },
       }),
       signin: build.mutation<User, Auth>({
+        invalidatesTags: (result, error, training) => {
+          return [{ type: "Auth" }, { type: "Training" }];
+        },
         query(signinDto: Auth) {
           return {
             url: "/auth/signin",

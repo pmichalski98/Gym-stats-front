@@ -35,7 +35,7 @@ const trainingsApi = createApi({
       }),
       fetchAllTrainings: build.query<Training[], void>({
         providesTags: (result, error, trainings) => {
-          return [{ type: "Training" }];
+          return [{ type: "Training" }, { type: "Auth" }];
         },
         query() {
           return {

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, SyntheticEvent, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
 import TrainingTable from "./TrainingTable";
 import { useUpdateTrainingsMutation } from "../../store";
 import Button from "../../components/Button";
@@ -17,20 +17,21 @@ function ChosenTrainingShow({ training, setChosen }: Props) {
   const [formData, setFormData] = useState<FormData>({});
   const [startTraining, setStartTraining] = useState(false);
 
+  // need to type this and add error check and loading state
   const [updateTrainings] = useUpdateTrainingsMutation();
 
-  function handleSavingTraining() {
+  function handleSavingTraining(): void {
     try {
       updateTrainings(chosenTraining);
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      throw new Error(err);
     }
   }
 
   function handleEditFormChange(
     event: ChangeEvent<HTMLInputElement>,
     fieldName: keyof FormData
-  ) {
+  ): void {
     event.preventDefault();
 
     const fieldValue = event.target.value;
@@ -41,15 +42,15 @@ function ChosenTrainingShow({ training, setChosen }: Props) {
     });
   }
 
-  function handleEditBtn(exercise: Exercise, index: number) {
+  function handleEditBtn(exercise: Exercise, index: number): void {
     setEditRow(index);
     setFormData({ ...exercise });
   }
 
-  function handleSaveBtn(event: SyntheticEvent) {
+  function handleSaveBtn(event: SyntheticEvent): void {
     event.preventDefault();
 
-    const updatedExercises = chosenTraining.exercises.map(
+    const updatedExercises: Exercise[] = chosenTraining.exercises.map(
       (exercise: Exercise) =>
         exercise.id === formData.id
           ? { ...exercise, ...formData }
@@ -82,7 +83,7 @@ function ChosenTrainingShow({ training, setChosen }: Props) {
     );
   }
 
-  function startTrainingClick() {
+  function startTrainingClick(): void {
     setStartTraining(!startTraining);
   }
 
@@ -131,9 +132,10 @@ function ChosenTrainingShow({ training, setChosen }: Props) {
     },
   ];
 
-  const contentBeforeTrainingStarted = (
+  const contentBeforeTrainingStarted: JSX.Element = (
     <>
       <div className="container mx-auto w-fit my-14 ">
+        {/* probably should be Router link instead of button */}
         <Button variant="secondary" rounded onClick={() => setChosen(false)}>
           Go Back
         </Button>
@@ -165,7 +167,7 @@ function ChosenTrainingShow({ training, setChosen }: Props) {
     </>
   );
 
-  const contentAfterTrainingStarted = (
+  const contentAfterTrainingStarted: JSX.Element = (
     <TrainingStartedPage training={chosenTraining} />
   );
 

@@ -37,6 +37,7 @@ function Button({
   );
 
   return (
+    // eslint-disable-next-line react/button-has-type
     <button {...rest} className={classes}>
       {children}
     </button>

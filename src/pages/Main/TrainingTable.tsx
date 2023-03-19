@@ -1,35 +1,45 @@
-import {Exercise} from "../../types/training";
+import { Exercise } from "../../types/training";
 
 interface Props {
-    config:  {label: string, render: (exercise: Exercise, index: number) => (string | number | JSX.Element | undefined)}[]
-    data: Exercise[]
+  config: {
+    label: string;
+    render: (
+      exercise: Exercise,
+      index: number
+    ) => string | number | JSX.Element | undefined;
+  }[];
+  data: Exercise[];
 }
-function TrainingTable({config, data}:Props) {
-
-    const renderedLabels = config.map((column, index) => {
-
-        return <h2 className="" key={column.label}>{column.label}</h2>
-    });
-
-    const readOnlyRows = data.map((rowData, index) => {
-        const renderedCells = config.map((column) => {
-            return <div key={column.label} className="flex justify-center ">{column.render(rowData, index)}</div>
-        });
-        return (
-            <div className='contents' key={rowData.id}>
-                {renderedCells}
-            </div>
-        );
-    })
-
+function TrainingTable({ config, data }: Props) {
+  const renderedLabels = config.map((column) => {
     return (
-        <>
-            <div className='contents'>
-                {renderedLabels}
-            </div>
-            {readOnlyRows}
-        </>
+      <h2 className="" key={column.label}>
+        {column.label}
+      </h2>
     );
+  });
+
+  const readOnlyRows = data.map((rowData, index) => {
+    const renderedCells = config.map((column) => {
+      return (
+        <div key={column.label} className="flex justify-center ">
+          {column.render(rowData, index)}
+        </div>
+      );
+    });
+    return (
+      <div className="contents" key={rowData.id}>
+        {renderedCells}
+      </div>
+    );
+  });
+
+  return (
+    <>
+      <div className="contents">{renderedLabels}</div>
+      {readOnlyRows}
+    </>
+  );
 }
 
 export default TrainingTable;

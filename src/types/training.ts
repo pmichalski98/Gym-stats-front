@@ -1,19 +1,19 @@
 export interface Exercise {
-    id?:string;
-    name:string;
-    sets?:number;
-    reps?:number;
-    weight?:number;
+  id?: string;
+  name: string;
+  sets?: number;
+  reps?: number;
+  weight?: number;
 }
 export interface Training {
-    title:string;
-    id?:string;
-    exercises: Exercise[]
+  title: string;
+  id?: string;
+  exercises: Exercise[];
 }
 
 export interface NavContext {
-    currentPath: string;
-    navigate: (to:string) => void
+  currentPath: string;
+  navigate: (to: string) => void;
 }
 
-export type FormData = Partial<Exercise>
+export type FormData = Partial<Exercise>;

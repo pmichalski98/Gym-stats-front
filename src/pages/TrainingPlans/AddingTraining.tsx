@@ -1,96 +1,116 @@
+import { ChangeEvent, FormEvent, useState } from "react";
 import Button from "../../components/Button";
-import {ChangeEvent, FormEvent, useState} from "react";
-import {useAddTrainingMutation} from "../../store";
+import { useAddTrainingMutation } from "../../store";
 import Input from "../../components/Input";
 import ShowExercises from "./ShowExercises";
-import {Exercise} from "../../types/training";
+import { Exercise } from "../../types/training";
 
 interface Props {
-    goBackBtn: (value: boolean) => void
+  goBackBtn: (value: boolean) => void;
 }
 
-function AddingTraining({goBackBtn}: Props) {
-    const [exercises, setExercises] = useState<Exercise[]>([]);
-    const [exerciseName, setExerciseName] = useState('');
-    const [trainingName, setTrainingName] = useState('');
+function AddingTraining({ goBackBtn }: Props) {
+  const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [exerciseName, setExerciseName] = useState("");
+  const [trainingName, setTrainingName] = useState("");
 
-    const [addTraining] = useAddTrainingMutation();
+  // should handle error/ loading
+  const [addTraining] = useAddTrainingMutation();
 
-    function handleSubmit(event: FormEvent) {
-        event.preventDefault();
-        addTraining({
-            title: trainingName,
-            exercises: exercises,
-        });
-        goBackBtn(false)
-    }
+  // shouldnt be able to add training with empty name and exercises
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    addTraining({
+      title: trainingName,
+      exercises,
+    });
+    // probably should be router navigate
+    goBackBtn(false);
+  }
 
-    function handleExerciseOnChange(event: ChangeEvent<HTMLInputElement>) {
-        setExerciseName(event.target.value);
-    }
+  function handleExerciseOnChange(event: ChangeEvent<HTMLInputElement>) {
+    setExerciseName(event.target.value);
+  }
 
-    function handleTrainingNameChange(event: ChangeEvent<HTMLInputElement>) {
-        setTrainingName(event.target.value);
-    }
+  function handleTrainingNameChange(event: ChangeEvent<HTMLInputElement>) {
+    setTrainingName(event.target.value);
+  }
 
-    function handleAddingExercise() {
-        setExercises([
-                ...exercises,
-                {
-                    name: exerciseName,
-                }
-            ]
-        );
-        setExerciseName('');
-    }
+  function handleAddingExercise() {
+    setExercises([
+      ...exercises,
+      {
+        name: exerciseName,
+      },
+    ]);
+    setExerciseName("");
+  }
 
-    function handleExerciseDelete(index:number) {
-        const exercisesAfterDelete = [...exercises];
+  function handleExerciseDelete(index: number) {
+    const exercisesAfterDelete = [...exercises];
 
-        exercisesAfterDelete.splice(index, 1)
-        setExercises(exercisesAfterDelete);
-    }
+    exercisesAfterDelete.splice(index, 1);
+    setExercises(exercisesAfterDelete);
+  }
 
-    const saveTrainingBtn = exercises.length > 0 && <Button type="submit" variant="success" rounded className="mt-4 mx-auto">Dodaj trening</Button>
+  const saveTrainingBtn = exercises.length > 0 && (
+    <Button type="submit" variant="success" rounded className="mt-4 mx-auto">
+      Dodaj trening
+    </Button>
+  );
 
-    const addExerciseBtn = <Button onClick={handleAddingExercise} className="mx-auto mt-4" variant="primary" rounded>Dodaj cwiczenie</Button>
+  const addExerciseBtn = (
+    <Button
+      onClick={handleAddingExercise}
+      className="mx-auto mt-4"
+      variant="primary"
+      rounded
+    >
+      Dodaj cwiczenie
+    </Button>
+  );
 
-    const renderedExercises = <ShowExercises exercises={exercises} onDelete={handleExerciseDelete}/>
+  const renderedExercises = (
+    <ShowExercises exercises={exercises} onDelete={handleExerciseDelete} />
+  );
 
-    const trainingNameInput =
-        <Input
-            className="text-3xl max-w-fit my-2"
-            onChange={handleTrainingNameChange}
-            type="text"
-            value={trainingName}
-            placeholder="Nazwa treningu"
-        />
+  const trainingNameInput = (
+    <Input
+      className="text-3xl max-w-fit my-2"
+      onChange={handleTrainingNameChange}
+      type="text"
+      value={trainingName}
+      placeholder="Nazwa treningu"
+      required
+    />
+  );
 
-    const exerciseInput =
-        <Input
-            className="max-w-xs my-2 mt-4"
-            onChange={handleExerciseOnChange}
-            type="text"
-            value={exerciseName}
-            placeholder="Nazwa cwiczenia"
-        />
+  const exerciseInput = (
+    <Input
+      className="max-w-xs my-2 mt-4"
+      onChange={handleExerciseOnChange}
+      type="text"
+      value={exerciseName}
+      placeholder="Nazwa cwiczenia"
+      required
+    />
+  );
 
-    const trainingForm =
-        <form className="mt-10 p-4 border rounded " onSubmit={handleSubmit}>
-            {renderedExercises}
-            {saveTrainingBtn}
-        </form>
+  const trainingForm = (
+    <form className="mt-10 p-4 border rounded " onSubmit={handleSubmit}>
+      {renderedExercises}
+      {saveTrainingBtn}
+    </form>
+  );
 
-    return (
-        <>
-            <div className="mx-auto mt-6 p-4 text-center">
-                {trainingNameInput}
-                {exerciseInput}
-                {addExerciseBtn}
-                {exercises.length > 0 && trainingForm }
-            </div>
-        </>
-    );
+  return (
+    <div className="mx-auto mt-6 p-4 text-center">
+      {trainingNameInput}
+      {exerciseInput}
+      {addExerciseBtn}
+      {exercises.length > 0 && trainingForm}
+    </div>
+  );
 }
 
 export default AddingTraining;

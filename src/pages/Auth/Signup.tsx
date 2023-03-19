@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import Input from "../../components/Input";
@@ -14,24 +14,40 @@ function Signup() {
   const navigate = useNavigate();
   const [signup, { isLoading, error, data }] = useSignupMutation();
 
-  function emailOnChange(event: ChangeEvent<HTMLInputElement>) {
+  function emailOnChange(event: ChangeEvent<HTMLInputElement>): void {
     setEmail(event.target.value);
   }
 
-  function passwordOnChange(event: ChangeEvent<HTMLInputElement>) {
+  function passwordOnChange(event: ChangeEvent<HTMLInputElement>): void {
     setPassword(event.target.value);
   }
 
-  function passwordConfirmOnChange(event: ChangeEvent<HTMLInputElement>) {
+  function passwordConfirmOnChange(event: ChangeEvent<HTMLInputElement>): void {
     setPasswordConfirm(event.target.value);
   }
 
-  function handleFormSubmit(event: ChangeEvent<HTMLFormElement>) {
+  // eslint-disable-next-line consistent-return
+  async function handleFormSubmit(
+    event: ChangeEvent<HTMLFormElement>
+  ): Promise<void> {
     event.preventDefault();
     if (password !== passwordConfirm) {
       return setErrorMsg("Passwords do not match !");
     }
-    signup({ email, password });
+    try {
+      await signup({ email, password });
+    } catch (err) {
+      throw new Error(`Catch worked err: ${err}`);
+    }
+  }
+
+  useEffect(() => {
+    if (error) {
+      setErrorMsg(error.data.message);
+    }
+  }, [error]);
+
+  if (data) {
     navigate("/login");
   }
 

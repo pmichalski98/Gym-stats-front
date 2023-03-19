@@ -13,27 +13,29 @@ function Login() {
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
+  // Need to type RTK QUERY
   const [signin, { isLoading, error, data }] = useSigninMutation();
   const { setCurrentUser } = useAuth();
 
-  function emailOnChange(event: ChangeEvent<HTMLInputElement>) {
+  function emailOnChange(event: ChangeEvent<HTMLInputElement>): void {
     setEmail(event.target.value);
   }
 
-  function passwordOnChange(event: ChangeEvent<HTMLInputElement>) {
+  function passwordOnChange(event: ChangeEvent<HTMLInputElement>): void {
     setPassword(event.target.value);
   }
 
-  async function handleFormSubmit(event: ChangeEvent<HTMLFormElement>) {
+  async function handleFormSubmit(
+    event: ChangeEvent<HTMLFormElement>
+  ): Promise<void> {
     event.preventDefault();
     try {
       await signin({ email, password });
-    } catch (e) {
-      console.log("catch zadzialal");
+    } catch (err) {
+      throw new Error(`Catch worked err: ${err}`);
     }
   }
 
-  let content;
   useEffect(() => {
     if (error) {
       setErrorMsg(error.data.message);
@@ -44,8 +46,10 @@ function Login() {
     localStorage.setItem("auth", JSON.stringify(data));
     setCurrentUser(data);
     navigate("/");
-  } else {
-    content = (
+  }
+
+  return (
+    <div className="text-center pt-10">
       <form
         onSubmit={handleFormSubmit}
         className="w-fit mx-auto flex flex-col gap-4"
@@ -77,10 +81,8 @@ function Login() {
           </Link>
         </p>
       </form>
-    );
-  }
-
-  return <div className="text-center pt-10">{content}</div>;
+    </div>
+  );
 }
 
 export default Login;
