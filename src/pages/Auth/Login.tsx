@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { type ChangeEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import Button from "../../components/Button";
@@ -35,10 +35,7 @@ function Login() {
 
   let content;
   useEffect(() => {
-    if (error) {
-      // @ts-ignore
-      setErrorMsg(error.data.message);
-    }
+    setErrorMsg(error.data.message);
   }, [error]);
 
   if (data) {
@@ -51,7 +48,7 @@ function Login() {
         className="w-fit mx-auto flex flex-col  gap-4 "
       >
         <h2>Log In</h2>
-        {error && <ErrorAlert message={errorMsg} />}
+        {error != null && <ErrorAlert message={errorMsg} />}
         <Input
           type="email"
           placeholder="Email"
