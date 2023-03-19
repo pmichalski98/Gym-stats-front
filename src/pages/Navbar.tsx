@@ -41,6 +41,7 @@ function Navbar() {
         disabled={currentUser === undefined}
         onClick={handleLogout}
         variant="primary"
+        className={currentUser === undefined ? "pointer-events-none" : ""}
       >
         Logout
       </Button>
