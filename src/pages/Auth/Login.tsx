@@ -35,10 +35,13 @@ function Login() {
 
   let content;
   useEffect(() => {
-    setErrorMsg(error.data.message);
+    if (error) {
+      setErrorMsg(error.data.message);
+    }
   }, [error]);
 
   if (data) {
+    localStorage.setItem("auth", JSON.stringify(data));
     setCurrentUser(data);
     navigate("/");
   } else {

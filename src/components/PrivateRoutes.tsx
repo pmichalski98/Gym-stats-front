@@ -1,11 +1,15 @@
-import {Navigate, Outlet} from "react-router-dom";
-import {useAuth} from "../contexts/AuthContext";
+import { Navigate, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { User } from "../types/auth";
 
 function PrivateRoutes() {
-    const { currentUser } = useAuth();
-
-    return currentUser ? <Outlet/> : <Navigate to="/login"/>
-
+  const { setCurrentUser } = useAuth();
+  const currUser: User = JSON.parse(localStorage.getItem("auth"));
+  useEffect(() => {
+    setCurrentUser(currUser);
+  }, []);
+  return currUser ? <Outlet /> : <Navigate to="/login" />;
 }
 
 export default PrivateRoutes;
