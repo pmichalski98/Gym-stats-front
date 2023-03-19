@@ -34,6 +34,7 @@ function Navbar() {
     setCurrentUser(undefined);
     navigate("/login");
   };
+
   return (
     <nav className="flex justify-center justify-around border-b-4 border-cyan pt-3 ">
       {renderedLinks}

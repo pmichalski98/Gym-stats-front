@@ -48,9 +48,9 @@ function Login() {
     content = (
       <form
         onSubmit={handleFormSubmit}
-        className="w-fit mx-auto flex flex-col  gap-4 "
+        className="w-fit mx-auto flex flex-col gap-4"
       >
-        <h2>Log In</h2>
+        <h2 className="text-3xl">Log In</h2>
         {error != null && <ErrorAlert message={errorMsg} />}
         <Input
           type="email"
@@ -64,15 +64,17 @@ function Login() {
           value={password}
           onChange={passwordOnChange}
         />
-        <Button
-          disabled={isLoading}
-          variant="primary"
-          className="flex justify-center"
-        >
+        <Button disabled={isLoading} variant="primary">
           {isLoading ? <ClipLoader color="cyan" size={50} /> : "Login"}
         </Button>
         <p>
-          Don't have an account ?<Link to="/signup">Sign Up</Link>
+          Don&apos;t have an account ?{" "}
+          <Link
+            className="text-cyan font-bold hover:text-darkerCyan"
+            to="/signup"
+          >
+            Sign Up
+          </Link>
         </p>
       </form>
     );
